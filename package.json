@@ -1,0 +1,19 @@
+{
+  "name": "team_bountiful",
+  "version": "1.0.0",
+  "description": "Final project (group) for CSE341 Web Services course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shewchuk-eric/Team_Bountiful.git"
+  },
+  "author": "Joanna Gohnert, Dallin Stephens, Hyrum Troy Whittier, Eric Shewchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shewchuk-eric/Team_Bountiful/issues"
+  },
+  "homepage": "https://github.com/shewchuk-eric/Team_Bountiful#readme"
+}
