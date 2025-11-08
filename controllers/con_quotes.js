@@ -1,18 +1,28 @@
-let username;
-
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; 
-// const { userSchema, requireLogin, getToday } = require('../models/utilities');
-// const today = getToday();
+const { requireLogin } = require('../models/utilities');
+
 
 //TODO: Implement the following character controller functions
+const listAll = async (req, res) => {
+//validate user login
+    };
 
+const listByBook = async (req, res) => {
+//validate user login
+    };
 
-//quotes.get('/', quotesController.listAll);
-//quotes.get('/:book', quotesController.listByBook);
-//quotes.get('/:id', quotesController.listByCharacter);
-//quotes.post('/createNewQuote/', quotesController.createNewQuote);
-//quotes.put('/updateQuote/:id', quotesControllerr.updateQuote);
+const listByCharacter = async (req, res) => {
+//validate user login
+    };
+
+const createNewQuote = async (req, res) => {
+// validate user login - maybe admin level access? (allow users to create their own quotes?)
+    };
+
+const updateQuote = async (req, res) => {
+// validate user login - maybe admin level access? (allow users to only update their own quotes?)
+    };
 
 
 module.exports = { listAll, listByBook, listByCharacter, createNewQuote, updateQuote };

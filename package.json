@@ -4,7 +4,9 @@
   "description": "Final project (group) for CSE341 Web Services course",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "swagger": "node ./swagger.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,18 @@
   "bugs": {
     "url": "https://github.com/shewchuk-eric/Team_Bountiful/issues"
   },
-  "homepage": "https://github.com/shewchuk-eric/Team_Bountiful#readme"
+  "homepage": "https://github.com/shewchuk-eric/Team_Bountiful#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "joi": "^18.0.1",
+    "mongodb": "^7.0.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "swagger": "^0.0.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
 }

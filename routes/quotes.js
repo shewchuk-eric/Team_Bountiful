@@ -6,7 +6,7 @@ quotes.get('/', quotesController.listAll);
 quotes.get('/:book', quotesController.listByBook);
 quotes.get('/:id', quotesController.listByCharacter);
 quotes.post('/createNewQuote/', quotesController.createNewQuote);
-quotes.put('/updateQuote/:id', quotesControllerr.updateQuote);
+quotes.put('/updateQuote/:id', quotesController.updateQuote);
 
 
-module.exports = users;
+module.exports = quotes;

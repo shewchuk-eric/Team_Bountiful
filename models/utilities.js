@@ -4,8 +4,10 @@ const userSchema = Joi.object({
     firstName: Joi.string().min(3).max(50).required(),
     lastName: Joi.string().min(3).max(50),
     email: Joi.string().email().required(),
-    username: Joi.string().alphanum().min(4).max(30).required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required() // 8-30 characters, alphanumeric
+    userName: Joi.string().alphanum().min(4).max(30).required(),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(), // 8-30 characters, alphanumeric
+    accessLevel: Joi.string().valid('user', 'admin').required(),
+    accountModified: Joi.strip()
 });
 
 function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth

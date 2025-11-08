@@ -11,8 +11,7 @@ npm i swagger
 npm i swagger-autogen
 npm i swagger-ui-express
 
-// following are for the OAuth portions
-npm i cookie-parser // needed to set and check session cookies (user access validation)
+// following are for the OAuth portionsnpm 
 npm i express-session
 npm i passport
 npm i passport-github2
@@ -27,5 +26,8 @@ http://localhost:3000/api-docs/#/
 
 
 Repo: https://github.com/shewchuk-eric/Team_Bountiful
-MongoDB: 
-Render: 
+Render: https://team-bountiful.onrender.com
+
+
+Book of Mormon images on churchofjesuschrist.org
+https://www.churchofjesuschrist.org/media/collection/book-of-mormon-videos-images?lang=eng

@@ -10,7 +10,7 @@
 get {{base}}/users
 
 ### insert new user to DB
-post {{base}}/users/createNewUser HTTP/1.1 
+post {{base}}/users/createNewUser HTTP/1.1
 content-type: application/json
 
 {
@@ -18,13 +18,13 @@ content-type: application/json
     "lastName": "Shewchuk",
     "email": "she12041@byui.edu",
     "userName": "eShew823",
-    "password": "Eric823!",
+    "password": "Eric8238",
     "accessLevel": "user",
     "accountModified": ""
 }
 
 ### update user in DB
-put {{base}}/users/updateUser/**id** HTTP/1.1 
+put {{base}}/users/updateUser/690ea4f943c4cc83522517aa HTTP/1.1
 content-type: application/json
 
 {
@@ -32,13 +32,13 @@ content-type: application/json
     "lastName": "Shewchuk",
     "email": "she12041@byui.edu",
     "userName": "eShew823",
-    "password": "Eric823!",
+    "password": "Eric8238",
     "accessLevel": "admin",
     "accountModified": ""
 }
 
 ### change password for user in DB
-patch {{base}}/users/changePassword/**id** HTTP/1.1 
+patch {{base}}/users/changePassword/**id** HTTP/1.1
 content-type: application/json
 
 {
@@ -56,6 +56,7 @@ content-type: application/json
 ### delete user in DB
 delete {{base}}/users/removeUser/**id** HTTP/1.1
 
+
 //****************************
 // CHARACTERS routes (LOCAL) *
 //****************************
@@ -63,7 +64,7 @@ delete {{base}}/users/removeUser/**id** HTTP/1.1
 ### list all characters in DB
 get {{base}}/characters
 
-### list single character in DB
+### list details of single character in DB
 get {{base}}/characters/**id**
 
 ### list characters by book in DB
@@ -95,3 +96,267 @@ content-type: application/json
     "quality": "Hero",
     "notes": "Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given."
 }
+
+
+//************************
+// QUOTES routes (LOCAL) *
+//************************
+
+### list all quotes in DB
+get {{base}}/quotes
+
+### list all quotes by book
+get {{base}}/quotes/**bookId**
+
+### list all quotes by character
+get {{base}}/quotes/**characterId**
+
+### insert new quote to DB
+post {{base}}/quotes/createNewQuote HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "whereFound": "1 Nephi 3:7",
+    "characterQuality": "Hero",
+    "text": "I will go and do the things which the Lord hath commanded."
+}
+
+### update quote in DB
+put {{base}}/quotes/updateQuote/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "whereFound": "1 Nephi 3:7",
+    "characterQuality": "Hero",
+    "text": "I will go and do the things which the Lord hath commanded."
+}
+
+
+//************************
+// IMAGES routes (LOCAL) *
+//************************
+
+### list all images in DB
+get {{base}}/images
+
+### list all images by book
+get {{base}}/images/**bookId**
+
+### list all images by character
+get {{base}}/images/**characterId** 
+
+### insert new image to DB
+post {{base}}/images/createNewImage HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "bookWhereSeen": "1 Nephi",
+    "characterQuality": "Hero",
+    "filename": "nephi_donkey.jpeg",
+    "caption": "Nephi with a donkey",
+    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
+}
+
+### update image in DB
+put {{base}}/images/updateImage/**id** HTTP/1.1
+content-type: application/json
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "bookWhereSeen": "1 Nephi",
+    "characterQuality": "Hero",
+    "filename": "nephi_donkey.jpeg",
+    "caption": "Nephi with a donkey",
+    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
+}
+
+### delete image in DB
+delete {{base}}/images/removeImage/**id** HTTP/1.1
+
+
+//************************
+// USERS routes (RENDER) *
+//************************
+
+### list users in DB
+get {{remote}}/users
+
+### insert new user to DB
+post {{remote}}/users/createNewUser HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Eric",
+    "lastName": "Shewchuk",
+    "email": "she12041@byui.edu",
+    "userName": "eShew823",
+    "password": "Eric823!",
+    "accessLevel": "user",
+    "accountModified": ""
+}
+
+### update user in DB
+put {{remote}}/users/updateUser/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Eric",
+    "lastName": "Shewchuk",
+    "email": "she12041@byui.edu",
+    "userName": "eShew823",
+    "password": "Eric823!",
+    "accessLevel": "admin",
+    "accountModified": ""
+}
+
+### change password for user in DB
+patch {{remote}}/users/changePassword/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "password": "NewPass823!"
+}
+
+### set access level for user in DB
+patch {{remote}}/users/setAccessLevel/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "accessLevel": "admin"
+}
+
+### delete user in DB
+delete {{remote}}/users/removeUser/**id** HTTP/1.1
+
+
+//*****************************
+// CHARACTERS routes (RENDER) *
+//*****************************
+
+### list all characters in DB
+get {{remote}}/characters
+
+### list details of single character in DB
+get {{remote}}/characters/**id**
+
+### list characters by book in DB
+get {{remote}}/characters/**bookId**
+
+### list characters by quality in DB
+get {{remote}}/characters/**quality**
+
+### insert new character to DB
+post {{remote}}/characters/createNewCharacter HTTP/1.1
+content-type: application/json
+
+{
+    "characterName": "Nephi",
+    "firstBookSeen": "1Nephi",
+    "firstVerseSeen": "1:1",
+    "quality": "Hero",
+    "notes": "Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given."
+}
+
+### update character in DB
+put {{remote}}/characters/updateCharacter/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "characterName": "Nephi",
+    "firstBookSeen": "1Nephi",
+    "firstVerseSeen": "1:1",
+    "quality": "Hero",
+    "notes": "Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given."
+}
+
+
+//*************************
+// QUOTES routes (RENDER) *
+//*************************
+
+### list all quotes in DB
+get {{remote}}/quotes
+
+### list all quotes by book
+get {{remote}}/quotes/**bookId**
+
+### list all quotes by character
+get {{remote}}/quotes/**characterId**
+
+### insert new quote to DB
+post {{remote}}/quotes/createNewQuote HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "whereFound": "1 Nephi 3:7",
+    "characterQuality": "Hero",
+    "text": "I will go and do the things which the Lord hath commanded."
+}
+
+### update quote in DB
+put {{remote}}/quotes/updateQuote/**id** HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "whereFound": "1 Nephi 3:7",
+    "characterQuality": "Hero",
+    "text": "I will go and do the things which the Lord hath commanded."
+}
+
+
+//*************************
+// IMAGES routes (RENDER) *
+//*************************
+
+### list all images in DB
+get {{remote}}/images
+
+### list all images by book
+get {{remote}}/images/**bookId**
+
+### list all images by character
+get {{remote}}/images/**characterId** 
+
+### insert new image to DB
+post {{remote}}/images/createNewImage HTTP/1.1
+content-type: application/json
+
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "bookWhereSeen": "1 Nephi",
+    "characterQuality": "Hero",
+    "filename": "nephi_donkey.jpeg",
+    "caption": "Nephi with a donkey",
+    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
+}
+
+### update image in DB
+put {{remote}}/images/updateImage/**id** HTTP/1.1
+content-type: application/json
+{
+    "characterId": "**id**",
+    "characterName": "Nephi",
+    "bookWhereSeen": "1 Nephi",
+    "characterQuality": "Hero",
+    "filename": "nephi_donkey.jpeg",
+    "caption": "Nephi with a donkey",
+    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
+}
+
+### delete image in DB
+delete {{remote}}/images/removeImage/**id** HTTP/1.1
