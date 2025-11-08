@@ -95,5 +95,4 @@ const removeUser = async (req, res) => {
   }
 };
 
-
 module.exports = { listAllUsers, createNewUser, updateUser, changePassword, setAccessLevel, removeUser };
