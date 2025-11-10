@@ -4,7 +4,16 @@ const { requireLogin } = require('../models/utilities'); // may need to add a se
 
 //TODO: Implement the following character controller functions
 const listAll  = async (req, res) => {
-//validate user login
+/* let user = requireLogin(req, res, next);
+  if (!user) {
+    res.status(403).json({ message: 'Forbidden. You must be signed in to use this resource.' });
+    return;
+  } */ // Validation for user level access - remove comment marks when sign-in is functional
+  const result = await mongodb.getDb().db('team_bountiful').collection('images').find({});
+  result.toArray().then((lists) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
+  });
  }; 
 
 const listByBook  = async (req, res) => {

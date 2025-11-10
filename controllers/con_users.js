@@ -5,11 +5,11 @@ const today = getToday();
 
 
 const listAllUsers = async (req, res, next) => {
-  let user = requireLogin(req, res, next);
+  /* let user = requireLogin(req, res, next);
   if (!user || userLevel != 'admin') {
     res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
     return;
-  }
+  } */ // Validation for admin level access - remove comment marks when sign-in is functional
   const result = await mongodb.getDb().db('team_bountiful').collection('users').find({});
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
