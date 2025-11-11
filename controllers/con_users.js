@@ -35,7 +35,7 @@ const createNewUser = async (req, res, next) => {
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {
-    res.status(500).json(response.error || 'Something went wrong.');
+    res.status(500).json(response.error || 'Something went wrong - user not inserted.');
   }
 };
 
