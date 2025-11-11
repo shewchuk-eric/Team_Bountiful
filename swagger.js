@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'My Pizza Ordering API',
-    description: 'Manage customers and their orders at my imaginary pizza factory with a MongoDB backend.',
+    title: 'Book of Mormon Characters API',
+    description: 'A searchable database of characters found in the Book of Mormon.',
   },
   host: 'localhost:3000'
 };

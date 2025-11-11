@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My Pizza Ordering API",
-    "description": "Manage customers and their orders at my imaginary pizza factory with a MongoDB backend.",
+    "title": "Book of Mormon Characters API",
+    "description": "A searchable database of characters found in the Book of Mormon.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -30,14 +30,11 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
     },
-    "/users/createNewUser/": {
+    "/users/createNewUser": {
       "post": {
         "description": "",
         "parameters": [
@@ -208,9 +205,12 @@
     "/characters/": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -218,6 +218,9 @@
     "/characters/{id}": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -227,15 +230,18 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
-    "/characters/{book}": {
+    "/characters/listByBook/{book}": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "book",
@@ -245,15 +251,18 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
-    "/characters/{quality}": {
+    "/characters/listByQuality/{quality}": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "quality",
@@ -263,18 +272,47 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
-    "/characters/createNewCharacter/": {
+    "/characters/createNewCharacter": {
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "characterName": {
+                  "example": "any"
+                },
+                "firstBookSeen": {
+                  "example": "any"
+                },
+                "firstVerseSeen": {
+                  "example": "any"
+                },
+                "quality": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -288,11 +326,38 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "characterName": {
+                  "example": "any"
+                },
+                "firstBookSeen": {
+                  "example": "any"
+                },
+                "firstVerseSeen": {
+                  "example": "any"
+                },
+                "quality": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -300,9 +365,12 @@
     "/quotes/": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -343,7 +411,7 @@
         }
       }
     },
-    "/quotes/createNewQuote/": {
+    "/quotes/createNewQuote": {
       "post": {
         "description": "",
         "responses": {
@@ -356,6 +424,14 @@
     "/quotes/updateQuote/{id}": {
       "put": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -366,27 +442,12 @@
     "/images/": {
       "get": {
         "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/images/{book}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "book",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+        "produces": [
+          "application/json"
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -409,7 +470,25 @@
         }
       }
     },
-    "/images/createNewImage/": {
+    "/images/imageByBook/{book}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/images/createNewImage": {
       "post": {
         "description": "",
         "responses": {
