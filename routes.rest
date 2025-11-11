@@ -144,7 +144,7 @@ content-type: application/json
 get {{base}}/images
 
 ### list all images by book
-get {{base}}/images/**bookId**
+get {{base}}/images/imageByBook/**bookName**
 
 ### list all images by character
 get {{base}}/images/**characterId** 

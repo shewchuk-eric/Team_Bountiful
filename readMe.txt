@@ -27,6 +27,8 @@ http://localhost:3000/api-docs/#/
 
 Repo: https://github.com/shewchuk-eric/Team_Bountiful
 Render: https://team-bountiful.onrender.com
+Trello: https://trello.com/b/V6S52Yi0/cse341-project-3?completedInviteSignup=1
+
 
 
 Book of Mormon images on churchofjesuschrist.org
