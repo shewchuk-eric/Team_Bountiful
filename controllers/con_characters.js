@@ -30,7 +30,7 @@ const listDetails = async (req, res) => {
 const listByBook = async (req, res) => {
 //validate user login
   const bookParam = req.params.book;
-  const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ firstBookSeen: bookParam });
+  const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ firstBookSeen: req.params.book });
     result.toArray().then((lists) => {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
