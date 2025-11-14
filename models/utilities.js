@@ -30,7 +30,6 @@ function getToday() {
       year: 'numeric'
     });
     const formattedDate = formatter.format(today);
-    console.log(formattedDate);
     return formattedDate;
 }
 
