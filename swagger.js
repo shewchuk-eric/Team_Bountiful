@@ -5,8 +5,8 @@ const doc = {
     title: 'Book of Mormon Characters API',
     description: 'A searchable database of characters found in the Book of Mormon.',
   },
-  host: 'team-bountiful.onrender.com', // Local development = 'localhost:3000' Remote =  'team-bountiful.onrender.com'
-  schemes: ['https'], // Local development = 'http' Remote = 'https
+  host: 'localhost:3000', // Local development = 'localhost:3000' Remote =  'team-bountiful.onrender.com'
+  schemes: ['http'], // Local development = 'http' Remote = 'https
 };
 
 const outputFile = './swagger.json';
