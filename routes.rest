@@ -78,7 +78,7 @@ post {{base}}/characters/createNewCharacter HTTP/1.1
 content-type: application/json
 
 {
-    "characterName": "",
+    "characterName":"",
     "firstBookSeen": "",
     "firstVerseSeen": "",
     "quality": "",
@@ -106,7 +106,7 @@ content-type: application/json
 get {{base}}/quotes
 
 ### list all quotes by book
-get {{base}}/quotes/**bookId**
+get {{base}}/quotes/**bookName**
 
 ### list all quotes by character
 get {{base}}/quotes/**characterId**
@@ -118,7 +118,8 @@ content-type: application/json
 {
     "characterId": "**id**",
     "characterName": "Nephi",
-    "whereFound": "1 Nephi 3:7",
+    "bookName": "1Nephi",
+    "verse": "3:7",
     "characterQuality": "Hero",
     "text": "I will go and do the things which the Lord hath commanded."
 }
@@ -130,7 +131,8 @@ content-type: application/json
 {
     "characterId": "**id**",
     "characterName": "Nephi",
-    "whereFound": "1 Nephi 3:7",
+    "bookName": "1Nephi",
+    "verse": "3:7",
     "characterQuality": "Hero",
     "text": "I will go and do the things which the Lord hath commanded."
 }
@@ -194,11 +196,11 @@ post {{remote}}/users/createNewUser HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "Eric",
-    "lastName": "Shewchuk",
-    "email": "she12041@byui.edu",
-    "userName": "eShew823",
-    "password": "Eric823!",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "userName": "",
+    "password": "",
     "accessLevel": "user",
     "accountModified": ""
 }
@@ -208,12 +210,12 @@ put {{remote}}/users/updateUser/**id** HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "Eric",
-    "lastName": "Shewchuk",
-    "email": "she12041@byui.edu",
-    "userName": "eShew823",
-    "password": "Eric823!",
-    "accessLevel": "admin",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "userName": "",
+    "password": "",
+    "accessLevel": "user",
     "accountModified": ""
 }
 
