@@ -21,6 +21,16 @@ const listAll = async (req, res) => {
 
 const listByBook = async (req, res) => {
   //validate user login
+  const bookName = req.params.book
+  const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({
+    whereFound: {
+      $regex: new RegExp(bookName, 'i')
+    }
+  });
+  result.toArray().then((lists) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
+  });
 };
 
 const listByCharacter = async (req, res) => {
