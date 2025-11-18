@@ -1,7 +1,7 @@
 npm init // initiate a new node project
 npm i dotenv // needed for the use of .env const values
 npm i express // create localhost server
-npm i --save-dev nodemon // auto refresh localhost server
+npm i nodemon --save-dev // auto refresh localhost server
 npm i cors // needed for sending certain routes
 npm i mongodb 
 npm i joi // needed for validation
@@ -22,7 +22,8 @@ npm i passport-github2
 node index.js // run the app
 npm run swagger // build documentation
 
-http://localhost:3000/api-docs/#/
+http://localhost:30
+00/api-docs/#/
 
 
 Repo: https://github.com/shewchuk-eric/Team_Bountiful
