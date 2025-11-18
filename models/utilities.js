@@ -10,17 +10,24 @@ const userSchema = Joi.object({
     accountModified: Joi.strip()
 });
 
-function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
-  if (req.session.isLoggedIn) {
-    let userCreds = {
-      "username": req.session.username,
-      "userLevel": req.session.userLevel
-    }
-    return(userCreds); // User is logged in, continue to the route handler
-  } else {
-    return(false)
+
+// authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.session && req.session.isLoggedIn) {
+    return next();
   }
+  return res.status(401).json({ message: 'Unauthorized. Please log in via OAuth.' });
 }
+
+// admin
+function ensureAdmin(req, res, next) {
+  if (req.session && req.session.isLoggedIn && req.session.userLevel === 'admin') {
+    return next();
+  }
+  return res.status(403).json({ message: 'Forbidden. Admin access required.' });
+}
+
+module.exports = { userSchema, requireLogin, getToday, ensureAuthenticated, ensureAdmin };
 
 function getToday() {
     const today = new Date();

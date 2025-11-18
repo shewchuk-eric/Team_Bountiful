@@ -5,11 +5,7 @@
     "description": "A searchable database of characters found in the Book of Mormon.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+
   "paths": {
     "/api-docs": {
       "get": {
@@ -31,7 +27,14 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/users/createNewUser": {
@@ -45,22 +48,22 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "lastName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "email": {
-                  "example": "any"
+                  "example": ""
                 },
                 "userName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
+                  "example": ""
                 },
                 "accessLevel": {
-                  "example": "any"
+                  "example": "user"
+                },
+                "accountModified": {
+                  "example": ""
                 }
               }
             }
@@ -96,22 +99,22 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "lastName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "email": {
-                  "example": "any"
+                  "example": ""
                 },
                 "userName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
+                  "example": ""
                 },
                 "accessLevel": {
-                  "example": "any"
+                  "example": "user"
+                },
+                "accountModified": {
+                  "example": ""
                 }
               }
             }
@@ -124,7 +127,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/users/changePassword/{id}": {
@@ -157,7 +167,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/users/setAccessLevel/{id}": {
@@ -178,7 +195,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/users/removeUser/{id}": {
@@ -199,7 +223,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/characters/": {
@@ -212,7 +243,14 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/characters/{id}": {
@@ -233,7 +271,14 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/characters/listByBook/{book}": {
@@ -254,7 +299,14 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/characters/listByQuality/{quality}": {
@@ -275,7 +327,14 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/characters/createNewCharacter": {
@@ -289,19 +348,19 @@
               "type": "object",
               "properties": {
                 "characterName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "firstBookSeen": {
-                  "example": "any"
+                  "example": ""
                 },
                 "firstVerseSeen": {
-                  "example": "any"
+                  "example": ""
                 },
                 "quality": {
-                  "example": "any"
+                  "example": ""
                 },
                 "notes": {
-                  "example": "any"
+                  "example": ""
                 }
               }
             }
@@ -314,7 +373,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/characters/updateCharacter/{id}": {
@@ -334,19 +400,19 @@
               "type": "object",
               "properties": {
                 "characterName": {
-                  "example": "any"
+                  "example": ""
                 },
                 "firstBookSeen": {
-                  "example": "any"
+                  "example": ""
                 },
                 "firstVerseSeen": {
-                  "example": "any"
+                  "example": ""
                 },
                 "quality": {
-                  "example": "any"
+                  "example": ""
                 },
                 "notes": {
-                  "example": "any"
+                  "example": ""
                 }
               }
             }
@@ -359,7 +425,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/quotes/": {
@@ -370,9 +443,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Quote"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/quotes/{book}": {
@@ -388,9 +474,22 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Quote"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/quotes/{id}": {
@@ -406,9 +505,22 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Quote"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/quotes/createNewQuote": {
@@ -418,7 +530,23 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        ]
       }
     },
     "/quotes/updateQuote/{id}": {
@@ -430,13 +558,27 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
           }
         ],
         "responses": {
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/images/": {
@@ -447,9 +589,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/images/{id}/": {
@@ -465,9 +620,22 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/images/imageByBook/{book}": {
@@ -483,9 +651,22 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ]
       }
     },
     "/images/createNewImage": {
@@ -495,7 +676,23 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          }
+        ]
       }
     },
     "/images/updateImage/{id}": {
@@ -507,13 +704,27 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
           }
         ],
         "responses": {
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
       }
     },
     "/images/removeImage/{id}": {
@@ -531,6 +742,94 @@
           "default": {
             "description": ""
           }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "admin"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://github.com/login/oauth/authorize",
+      "tokenUrl": "https://github.com/login/oauth/access_token",
+      "scopes": {
+        "read": "Read data from the API",
+        "write": "Modify data in the API",
+        "admin": "Full admin access"
+      }
+    }
+  },
+  "definitions": {
+    "Quote": {
+      "type": "object",
+      "properties": {
+        "characterId": {
+          "type": "string",
+          "example": "**id**"
+        },
+        "characterName": {
+          "type": "string",
+          "example": ""
+        },
+        "bookName": {
+          "type": "string",
+          "example": ""
+        },
+        "verse": {
+          "type": "string",
+          "example": ""
+        },
+        "characterQuality": {
+          "type": "string",
+          "example": ""
+        },
+        "text": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "characterId": {
+          "type": "string",
+          "example": "6912970eb69127d1966091e3"
+        },
+        "characterName": {
+          "type": "string",
+          "example": "Nephi"
+        },
+        "bookWhereSeen": {
+          "type": "string",
+          "example": "1 Nephi"
+        },
+        "characterQuality": {
+          "type": "string",
+          "example": "Hero"
+        },
+        "filename": {
+          "type": "string",
+          "example": "nephi_donkey.jpeg"
+        },
+        "caption": {
+          "type": "string",
+          "example": "Nephi has a donkey"
+        },
+        "description": {
+          "type": "string",
+          "example": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org"
+        },
+        "source": {
+          "type": "string",
+          "example": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
         }
       }
     }

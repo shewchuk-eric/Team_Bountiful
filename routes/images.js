@@ -1,13 +1,15 @@
 const images = require('express').Router();
 const imagesController = require('../controllers/con_images.js');
+const { ensureAuthenticated, ensureAdmin } = require('../models/utilities');
 
+//Require Login
+images.get('/', ensureAuthenticated, imagesController.listAll); 
+images.get('/:id/', ensureAuthenticated, imagesController.listByCharacter);
+images.get('/imageByBook/:book', ensureAuthenticated, imagesController.listByBook);
 
-images.get('/', imagesController.listAll); 
-images.get('/:id/', imagesController.listByCharacter);
-images.get('/imageByBook/:book', imagesController.listByBook);
-images.post('/createNewImage', imagesController.createNewImage);
-images.put('/updateImage/:id', imagesController.updateImage);
-images.delete('/removeImage/:id', imagesController.removeImage);
-
+//admin only
+images.post('/createNewImage', ensureAdmin, imagesController.createNewImage);
+images.put('/updateImage/:id', ensureAdmin, imagesController.updateImage);
+images.delete('/removeImage/:id', ensureAdmin, imagesController.removeImage);
 
 module.exports = images;
