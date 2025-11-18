@@ -1,6 +1,6 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; 
-const { requireLogin } = require('../models/utilities');
+const { ensureAuthenticated } = require('../models/utilities');
 
 
 //TODO: Implement the following character controller functions

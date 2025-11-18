@@ -1,11 +1,11 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; 
-const { requireLogin } = require('../models/utilities'); // may need to add a second validation function 
+const { ensureAuthenticated } = require('../models/utilities'); // may need to add a second validation function 
 
 
 //TODO: Implement the following character controller functions
 const listAll = async (req, res) => {
-/* let user = requireLogin(req, res, next);
+/* let user = ensureAuthenticated(req, res, next);
   if (!user) {
     res.status(403).json({ message: 'Forbidden. You must be signed in to use this resource.' });
     return;

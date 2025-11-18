@@ -1,17 +1,24 @@
 const Joi = require('joi');
 
 const userSchema = Joi.object({
-    firstName: Joi.string().min(3).max(50).required(),
-    lastName: Joi.string().min(3).max(50),
-    email: Joi.string().email().required(),
-    userName: Joi.string().alphanum().min(4).max(30).required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(), // 8-30 characters, alphanumeric
-    accessLevel: Joi.string().valid('user', 'admin').required(),
-    accountModified: Joi.strip()
+  firstName: Joi.string().min(3).max(50).required(),
+  lastName: Joi.string().min(3).max(50),
+  email: Joi.string().email().required(),
+  userName: Joi.string().alphanum().min(4).max(30).required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(), // 8-30 characters, alphanumeric
+  accessLevel: Joi.string().valid('user', 'admin').required(),
+  accountModified: Joi.strip()
 });
 
+// 
+function requireLogin(req, res, next) {
+  if (req.session && req.session.isLoggedIn) {
+    return true;
+  }
+  return false;
+}
 
-// authentication
+// login
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.isLoggedIn) {
     return next();
@@ -27,19 +34,21 @@ function ensureAdmin(req, res, next) {
   return res.status(403).json({ message: 'Forbidden. Admin access required.' });
 }
 
-module.exports = { userSchema, requireLogin, getToday, ensureAuthenticated, ensureAdmin };
-
 function getToday() {
-    const today = new Date();
-    const formatter = new Intl.DateTimeFormat('en-US', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric'
-    });
-    const formattedDate = formatter.format(today);
-    return formattedDate;
+  const today = new Date();
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+  const formattedDate = formatter.format(today);
+  return formattedDate;
 }
 
-
-
-module.exports = { userSchema, requireLogin, getToday };
+module.exports = {
+  userSchema,
+  requireLogin,
+  getToday,
+  ensureAuthenticated,
+  ensureAdmin
+};
