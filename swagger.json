@@ -6,8 +6,7 @@
     "version": "1.0.0"
   },
   "host": "team-bountiful.onrender.com",
-  "servers": [
-    {
+  "servers": [{
       "url": "team-bountiful.onrender.com",
       "description": "Render site",
       "schemes": [
@@ -54,35 +53,33 @@
     "/users/createNewUser": {
       "post": {
         "description": "Add a new user to the collection. Validates all fields using Joi.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "string"
-                },
-                "lastName": {
-                  "example": "string"
-                },
-                "email": {
-                  "example": "string"
-                },
-                "userName": {
-                  "example": "string"
-                },
-                "password": {
-                  "example": "string"
-                },
-                "accessLevel": {
-                  "example": "string"
-                }
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "example": "string"
+              },
+              "lastName": {
+                "example": "string"
+              },
+              "email": {
+                "example": "string"
+              },
+              "userName": {
+                "example": "string"
+              },
+              "password": {
+                "example": "string"
+              },
+              "accessLevel": {
+                "example": "string"
               }
             }
           }
-        ],
+        }],
         "responses": {
           "201": {
             "description": "Created"
@@ -99,8 +96,7 @@
     "/users/updateUser/{id}": {
       "put": {
         "description": "Make updates to an existing user in the collection. Validates all fields using Joi.",
-        "parameters": [
-          {
+        "parameters": [{
             "name": "id",
             "in": "path",
             "required": true,
@@ -147,8 +143,7 @@
     "/users/changePassword/{id}": {
       "patch": {
         "description": "Change the password for an existing user in the collection.",
-        "parameters": [
-          {
+        "parameters": [{
             "name": "id",
             "in": "path",
             "required": true,
@@ -180,14 +175,12 @@
     "/users/setAccessLevel/{id}": {
       "patch": {
         "description": "Change user access level from the default 'user' to 'admin'. Can also be done in reverse.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string (default: 'admin')"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string (default: 'admin')"
+        }],
         "responses": {
           "204": {
             "description": "No Content"
@@ -201,14 +194,12 @@
     "/users/removeUser/{id}": {
       "delete": {
         "description": "Delete an existing user from the collection.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "204": {
             "description": "No Content"
@@ -238,14 +229,12 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
             "description": "OK"
@@ -259,14 +248,12 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "book",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "book",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
             "description": "OK"
@@ -280,14 +267,12 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "quality",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "quality",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
             "description": "OK"
@@ -298,32 +283,30 @@
     "/characters/createNewCharacter": {
       "post": {
         "description": "Add a new character to the collection.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "characterName": {
-                  "example": "string"
-                },
-                "firstBookSeen": {
-                  "example": "string"
-                },
-                "firstVerseSeen": {
-                  "example": "string"
-                },
-                "quality": {
-                  "example": "string (Hero, Zero, Ambiguous)"
-                },
-                "notes": {
-                  "example": "string"
-                }
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "characterName": {
+                "example": "string"
+              },
+              "firstBookSeen": {
+                "example": "string"
+              },
+              "firstVerseSeen": {
+                "example": "string"
+              },
+              "quality": {
+                "example": "string (Hero, Zero, Ambiguous)"
+              },
+              "notes": {
+                "example": "string"
               }
             }
           }
-        ],
+        }],
         "responses": {
           "201": {
             "description": "Created"
@@ -337,8 +320,7 @@
     "/characters/updateCharacter/{id}": {
       "put": {
         "description": "Update an existing character in the collection.",
-        "parameters": [
-          {
+        "parameters": [{
             "name": "id",
             "in": "path",
             "required": true,
@@ -392,20 +374,18 @@
         }
       }
     },
-    "/quotes/{book}": {
+    "/quotes/listByBook/{book}": {
       "get": {
         "description": "List all quotes found in a given book.",
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "book",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "book",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
             "description": "OK"
@@ -413,17 +393,15 @@
         }
       }
     },
-    "/quotes/{id}": {
+    "/quotes/listByCharacter/{id}": {
       "get": {
         "description": "List all quotes by a specific character ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": "Quotes were found."
@@ -434,32 +412,30 @@
     "/quotes/createNewQuote": {
       "post": {
         "description": "Create a new quote in the collection.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "characterId": {
-                  "example": "string"
-                },
-                "characterName": {
-                  "example": "string"
-                },
-                "whereFound": {
-                  "example": "string"
-                },
-                "characterQuality": {
-                  "example": "string (Hero, Zero, Ambiguous)"
-                },
-                "text": {
-                  "example": "string"
-                }
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "characterId": {
+                "example": "string"
+              },
+              "characterName": {
+                "example": "string"
+              },
+              "whereFound": {
+                "example": "string"
+              },
+              "characterQuality": {
+                "example": "string (Hero, Zero, Ambiguous)"
+              },
+              "text": {
+                "example": "string"
               }
             }
           }
-        ],
+        }],
         "responses": {
           "201": {
             "description": "Created"
@@ -473,14 +449,12 @@
     "/quotes/updateQuote/{id}": {
       "put": {
         "description": "Update an existing quote in the collection.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": "Quote updated."
@@ -504,14 +478,12 @@
     "/images/{id}/": {
       "get": {
         "description": "List images associated with a specific character ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": ""
@@ -522,14 +494,12 @@
     "/images/imageByBook/{book}": {
       "get": {
         "description": "List images associated with a specific book.",
-        "parameters": [
-          {
-            "name": "book",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "book",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": ""
@@ -550,14 +520,12 @@
     "/images/updateImage/{id}": {
       "put": {
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": ""
@@ -568,14 +536,12 @@
     "/images/removeImage/{id}": {
       "delete": {
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "default": {
             "description": ""
