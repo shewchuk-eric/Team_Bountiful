@@ -35,6 +35,14 @@ const listByBook = async (req, res) => {
 
 const listByCharacter = async (req, res) => {
   //validate user login
+  const character = req.params.id
+  const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({
+    characterId: character
+  });
+  result.toArray().then((lists) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
+  });
 };
 
 const createNewQuote = async (req, res) => {
