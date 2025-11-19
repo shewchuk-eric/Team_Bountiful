@@ -40,7 +40,7 @@
     },
     "/users/": {
       "get": {
-        "description": "",
+        "description": "List all users in the collection.",
         "produces": [
           "application/json"
         ],
@@ -53,7 +53,7 @@
     },
     "/users/createNewUser": {
       "post": {
-        "description": "",
+        "description": "Add a new user to the collection. Validates all fields using Joi.",
         "parameters": [
           {
             "name": "body",
@@ -62,22 +62,22 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "lastName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "email": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "userName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "password": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "accessLevel": {
-                  "example": "any"
+                  "example": "string"
                 }
               }
             }
@@ -98,7 +98,7 @@
     },
     "/users/updateUser/{id}": {
       "put": {
-        "description": "",
+        "description": "Make updates to an existing user in the collection. Validates all fields using Joi.",
         "parameters": [
           {
             "name": "id",
@@ -113,22 +113,22 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "lastName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "email": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "userName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "password": {
-                  "example": "any"
+                  "example": "string of 8-30 characters, alphanumeric"
                 },
                 "accessLevel": {
-                  "example": "any"
+                  "example": "string (default: 'user')"
                 }
               }
             }
@@ -146,7 +146,7 @@
     },
     "/users/changePassword/{id}": {
       "patch": {
-        "description": "",
+        "description": "Change the password for an existing user in the collection.",
         "parameters": [
           {
             "name": "id",
@@ -161,7 +161,7 @@
               "type": "object",
               "properties": {
                 "password": {
-                  "example": "any"
+                  "example": "string of 8-30 characters, alphanumeric"
                 }
               }
             }
@@ -179,13 +179,13 @@
     },
     "/users/setAccessLevel/{id}": {
       "patch": {
-        "description": "",
+        "description": "Change user access level from the default 'user' to 'admin'. Can also be done in reverse.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string (default: 'admin')"
           }
         ],
         "responses": {
@@ -200,7 +200,7 @@
     },
     "/users/removeUser/{id}": {
       "delete": {
-        "description": "",
+        "description": "Delete an existing user from the collection.",
         "parameters": [
           {
             "name": "id",
@@ -221,7 +221,7 @@
     },
     "/characters/": {
       "get": {
-        "description": "",
+        "description": "List all characters in the collection.",
         "produces": [
           "application/json"
         ],
@@ -234,7 +234,7 @@
     },
     "/characters/{id}": {
       "get": {
-        "description": "",
+        "description": "List the details of a specific character by their unique ID.",
         "produces": [
           "application/json"
         ],
@@ -255,7 +255,7 @@
     },
     "/characters/listByBook/{book}": {
       "get": {
-        "description": "",
+        "description": "List all characters in the collection according to being found in a specific book such as 2Nephi.",
         "produces": [
           "application/json"
         ],
@@ -276,7 +276,7 @@
     },
     "/characters/listByQuality/{quality}": {
       "get": {
-        "description": "",
+        "description": "List all characters by the quality of 'Hero', 'Zero', or 'Ambiguous'.",
         "produces": [
           "application/json"
         ],
@@ -297,7 +297,7 @@
     },
     "/characters/createNewCharacter": {
       "post": {
-        "description": "",
+        "description": "Add a new character to the collection.",
         "parameters": [
           {
             "name": "body",
@@ -306,19 +306,19 @@
               "type": "object",
               "properties": {
                 "characterName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "firstBookSeen": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "firstVerseSeen": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "quality": {
-                  "example": "any"
+                  "example": "string (Hero, Zero, Ambiguous)"
                 },
                 "notes": {
-                  "example": "any"
+                  "example": "string"
                 }
               }
             }
@@ -336,7 +336,7 @@
     },
     "/characters/updateCharacter/{id}": {
       "put": {
-        "description": "",
+        "description": "Update an existing character in the collection.",
         "parameters": [
           {
             "name": "id",
@@ -351,19 +351,19 @@
               "type": "object",
               "properties": {
                 "characterName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "firstBookSeen": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "firstVerseSeen": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "quality": {
-                  "example": "any"
+                  "example": "string (Hero, Zero, Ambiguous)"
                 },
                 "notes": {
-                  "example": "any"
+                  "example": "string"
                 }
               }
             }
@@ -381,7 +381,7 @@
     },
     "/quotes/": {
       "get": {
-        "description": "",
+        "description": "List all quotes in the collection.",
         "produces": [
           "application/json"
         ],
@@ -394,7 +394,7 @@
     },
     "/quotes/{book}": {
       "get": {
-        "description": "",
+        "description": "List all quotes found in a given book.",
         "produces": [
           "application/json"
         ],
@@ -415,7 +415,7 @@
     },
     "/quotes/{id}": {
       "get": {
-        "description": "",
+        "description": "List all quotes by a specific character ID.",
         "parameters": [
           {
             "name": "id",
@@ -426,14 +426,14 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "Quotes were found."
           }
         }
       }
     },
     "/quotes/createNewQuote": {
       "post": {
-        "description": "",
+        "description": "Create a new quote in the collection.",
         "parameters": [
           {
             "name": "body",
@@ -442,19 +442,19 @@
               "type": "object",
               "properties": {
                 "characterId": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "characterName": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "whereFound": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "characterQuality": {
-                  "example": "any"
+                  "example": "string (Hero, Zero, Ambiguous)"
                 },
                 "text": {
-                  "example": "any"
+                  "example": "string"
                 }
               }
             }
@@ -472,7 +472,7 @@
     },
     "/quotes/updateQuote/{id}": {
       "put": {
-        "description": "",
+        "description": "Update an existing quote in the collection.",
         "parameters": [
           {
             "name": "id",
@@ -483,14 +483,14 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "description": "Quote updated."
           }
         }
       }
     },
     "/images/": {
       "get": {
-        "description": "",
+        "description": "List the filenames of all images in the collection.",
         "produces": [
           "application/json"
         ],
@@ -503,7 +503,7 @@
     },
     "/images/{id}/": {
       "get": {
-        "description": "",
+        "description": "List images associated with a specific character ID.",
         "parameters": [
           {
             "name": "id",
@@ -521,7 +521,7 @@
     },
     "/images/imageByBook/{book}": {
       "get": {
-        "description": "",
+        "description": "List images associated with a specific book.",
         "parameters": [
           {
             "name": "book",
@@ -539,7 +539,7 @@
     },
     "/images/createNewImage": {
       "post": {
-        "description": "",
+        "description": "Add an image to the collection.",
         "responses": {
           "default": {
             "description": ""
