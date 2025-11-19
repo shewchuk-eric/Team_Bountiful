@@ -5,7 +5,6 @@ const doc = {
     title: 'Book of Mormon Characters API',
     description: 'A searchable database of characters found in the Book of Mormon.',
   },
-  "host": "team-bountiful.onrender.com",
   "servers": [
     {
       "url": "https://team-bountiful.onrender.com",
