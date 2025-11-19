@@ -8,14 +8,14 @@
   "host": "team-bountiful.onrender.com",
   "servers": [
     {
-      "url": "team-bountiful.onrender.com",
+      "url": "https://team-bountiful.onrender.com",
       "description": "Render site",
       "schemes": [
         "https"
       ]
     },
     {
-      "url": "localhost:3000",
+      "url": "http://localhost:3000",
       "description": "Localhost",
       "schemes": [
         "http"
