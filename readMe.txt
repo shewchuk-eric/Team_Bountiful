@@ -1,10 +1,11 @@
 npm init // initiate a new node project
 npm i dotenv // needed for the use of .env const values
 npm i express // create localhost server
-npm i nodemon --save-dev // auto refresh localhost server
 npm i cors // needed for sending certain routes
 npm i mongodb 
 npm i joi // needed for validation
+npm i --save-dev nodemon // auto refresh localhost server
+npm i --save-dev jest // unit testing
 
 // following three are for building the api documentation
 npm i swagger
