@@ -5,7 +5,23 @@
     "description": "A searchable database of characters found in the Book of Mormon.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "team-bountiful.onrender.com",
+  "servers": [
+    {
+      "url": "team-bountiful.onrender.com",
+      "description": "Render site",
+      "schemes": [
+        "https"
+      ]
+    },
+    {
+      "url": "localhost:3000",
+      "description": "Localhost",
+      "schemes": [
+        "http"
+      ]
+    }
+  ],
   "basePath": "/",
   "schemes": [
     "http"
@@ -378,6 +394,9 @@
     "/quotes/{book}": {
       "get": {
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "book",
@@ -387,8 +406,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -414,9 +433,38 @@
     "/quotes/createNewQuote": {
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "characterId": {
+                  "example": "any"
+                },
+                "characterName": {
+                  "example": "any"
+                },
+                "whereFound": {
+                  "example": "any"
+                },
+                "characterQuality": {
+                  "example": "any"
+                },
+                "text": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
