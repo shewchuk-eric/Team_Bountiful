@@ -6,7 +6,13 @@ const {
 
 
 //TODO: Implement the following character controller functions
+
+// GET: RETRIEVE ALL QUOTES
 const listAll = async (req, res) => {
+  /*
+    #swagger.tags = ['GET: Quotes']
+  */
+
   /* let user = requireLogin(req, res, next);
     if (!user) {
       res.status(403).json({ message: 'Forbidden. You must be signed in to use this resource.' });
@@ -19,7 +25,12 @@ const listAll = async (req, res) => {
   });
 };
 
+// GET: LIST ALL QUOTES BY BOOK
 const listByBook = async (req, res) => {
+  /*
+    #swagger.tags = ['GET: Quotes']
+  */
+
   //validate user login
   const bookName = req.params.book
   const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({
@@ -33,7 +44,13 @@ const listByBook = async (req, res) => {
   });
 };
 
+
+// GET: LIST ALL QUOTES BY CHARACTER
 const listByCharacter = async (req, res) => {
+  /*
+    #swagger.tags = ['GET: Quotes']
+  */
+
   //validate user login
   const character = req.params.id
   const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({
@@ -45,7 +62,12 @@ const listByCharacter = async (req, res) => {
   });
 };
 
+// POST: CREATE ON QUOTE
 const createNewQuote = async (req, res) => {
+  /*
+    #swagger.tags = ['POST: Quotes']
+  */
+
   // validate user login - maybe admin level access? (allow users to create their own quotes?)
   const quote = {
     characterId: req.body.characterId,
@@ -63,7 +85,12 @@ const createNewQuote = async (req, res) => {
   };
 };
 
+// PUT: UPDATE QUOTE BY ID
 const updateQuote = async (req, res) => {
+  /*
+    #swagger.tags = ['DELETE: Quotes']
+  */
+
   // validate user login - maybe admin level access? (allow users to only update their own quotes?)
 };
 
