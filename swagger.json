@@ -5,25 +5,10 @@
     "description": "A searchable database of characters found in the Book of Mormon.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "servers": [
-    {
-      "url": "team-bountiful.onrender.com",
-      "description": "Render site",
-      "schemes": [
-        "https"
-      ]
-    },
-    {
-      "url": "localhost:3000",
-      "description": "Localhost",
-      "schemes": [
-        "http"
-      ]
-    }
-  ],
+  "host": "team-bountiful.onrender.com",
   "basePath": "/",
   "schemes": [
+    "https",
     "http"
   ],
   "paths": {
