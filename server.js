@@ -83,6 +83,9 @@ mongodb.initDb((err, mongodb) => {
   } else {
     app.listen(port);
     console.log(`Connected to DB and listening on ${port}`);
+    console.log(`Access GitHub login at http://localhost:${port}/auth/github`);
+    console.log(`Access api-docs at http://localhost:${port}/api-docs/`)
+    console.log(`Access at http://localhost:${port}`);
   }
 });
 
