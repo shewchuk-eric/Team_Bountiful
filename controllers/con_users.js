@@ -3,8 +3,12 @@ const ObjectId = require('mongodb').ObjectId;
 const { userSchema, requireLogin, getToday } = require('../models/utilities');
 const today = getToday();
 
-
+// GET: LIST ALL USERS
 const listAllUsers = async (req, res, next) => {
+  /*
+    #swagger.tags = ['GET: Users']
+  */
+
   /* let user = requireLogin(req, res, next);
   if (!user || userLevel != 'admin') {
     res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -17,7 +21,12 @@ const listAllUsers = async (req, res, next) => {
   });
 };
 
+// POST: CREATE NEW USER
 const createNewUser = async (req, res, next) => {
+  /*
+    #swagger.tags = ['POST: Users']
+  */
+
   const { error } = userSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
@@ -39,7 +48,12 @@ const createNewUser = async (req, res, next) => {
   }
 };
 
+// PUT: UPDATE USER
 const updateUser = async (req, res) => {
+  /*
+    #swagger.tags = ['PUT: Users']
+  */
+
 // validate admin level access or that person making the change is the user themselves
   const userId = new ObjectId(req.params.id);
   const contact = {
@@ -59,7 +73,12 @@ const updateUser = async (req, res) => {
   }
 };
 
+// PATCH: UPDATE USER PASSWORD
 const changePassword = async (req, res) => {
+  /*
+    #swagger.tags = ['PATCH: Users']
+  */
+
 // validate admin level access
   const userId = new ObjectId(req.params.id);
   const newPassword = {password: req.body.password};
@@ -71,7 +90,12 @@ const changePassword = async (req, res) => {
   }
 };
 
+// PATCH: UPDATE ACCESS LEVEL
 const setAccessLevel = async (req, res) => {
+  /*
+    #swagger.tags = ['PATCH: Users']
+  */
+
 // validate admin level access
   const userId = new ObjectId(req.params.id);  
     const newAccessLevel = {accessLevel: 'admin'};
@@ -83,7 +107,12 @@ const setAccessLevel = async (req, res) => {
   }
 };
 
+// DELETE: DELETE USER
 const removeUser = async (req, res) => {
+  /*
+    #swagger.tags = ['DELETE: Users']
+  */
+
 // validate admin level access or that person making the change is the user themselves
   const userId = new ObjectId(req.params.id);
   const response = await mongodb.getDb().db('team_bountiful').collection('users').deleteOne({ _id: userId }, true);

@@ -39,6 +39,9 @@
     },
     "/users/": {
       "get": {
+        "tags": [
+          "GET: Users"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -52,6 +55,9 @@
     },
     "/users/createNewUser": {
       "post": {
+        "tags": [
+          "POST: Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -97,6 +103,9 @@
     },
     "/users/updateUser/{id}": {
       "put": {
+        "tags": [
+          "PUT: Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -145,6 +154,9 @@
     },
     "/users/changePassword/{id}": {
       "patch": {
+        "tags": [
+          "PATCH: Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -178,6 +190,9 @@
     },
     "/users/setAccessLevel/{id}": {
       "patch": {
+        "tags": [
+          "PATCH: Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -199,6 +214,9 @@
     },
     "/users/removeUser/{id}": {
       "delete": {
+        "tags": [
+          "DELETE: Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -732,6 +750,9 @@
     },
     "/quotes/": {
       "get": {
+        "tags": [
+          "GET: Quotes"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -745,6 +766,9 @@
     },
     "/quotes/listByBook/{book}": {
       "get": {
+        "tags": [
+          "GET: Quotes"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -766,6 +790,9 @@
     },
     "/quotes/listByCharacter/{id}": {
       "get": {
+        "tags": [
+          "GET: Quotes"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -787,6 +814,9 @@
     },
     "/quotes/createNewQuote": {
       "post": {
+        "tags": [
+          "POST: Quotes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -826,6 +856,9 @@
     },
     "/quotes/updateQuote/{id}": {
       "put": {
+        "tags": [
+          "DELETE: Quotes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -992,7 +1025,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "This lists all the images by a specific character. Example quality: Nephi",
+            "description": "This lists all the images by a specific character. Example character: Nephi",
             "example": "Nephi"
           }
         ],
@@ -1135,8 +1168,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "This is an object id of the image to update. Example id: 6912970eb69127d1966091e3",
-            "example": "6912970eb69127d1966091e3"
+            "description": "This is an object id of the image to update. Example id: 69227d43cc3fae26dd0125f9",
+            "example": "69227d43cc3fae26dd0125f9"
           },
           {
             "name": "body",
@@ -1212,8 +1245,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "This is an object id of the image to delete. Example id: 6912970eb69127d1966091e3",
-            "example": "6912970eb69127d1966091e3"
+            "description": "This is an object id of the image to delete. Example id: 69227d43cc3fae26dd0125f9",
+            "example": "69227d43cc3fae26dd0125f9"
           }
         ],
         "responses": {
