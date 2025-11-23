@@ -844,95 +844,438 @@
     },
     "/images/": {
       "get": {
-        "description": "",
+        "tags": [
+          "GET: Images"
+        ],
+        "description": "List all images.",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/images/{id}/": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
+            "description": "All images were successfully found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "$ref": "#/definitions/Image"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/images/imageByBook/{book}": {
       "get": {
-        "description": "",
+        "tags": [
+          "GET: Images"
+        ],
+        "description": "List all images by book.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "book",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This lists all the images by a specific book. Example book: 1 Nephi",
+            "example": "1Nephi"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "All images with the specified book were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No images with the specified book were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No images with the specified book were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/listByCharacter/{character}": {
+      "get": {
+        "tags": [
+          "GET: Images"
+        ],
+        "description": "List all images by character.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "character",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This lists all the images by a specific character. Example quality: Nephi",
+            "example": "Nephi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All images with the specified character were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No images with the specified character were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No images with the specified character were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/images/createNewImage": {
       "post": {
-        "description": "",
+        "tags": [
+          "POST: Images"
+        ],
+        "description": "Create a new image.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "This contains the image object that contains the data to create.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "An image was successfully created.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "One or more fields are missing to create an image.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "One or more fields are missing to create an image."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/images/updateImage/{id}": {
       "put": {
-        "description": "",
+        "tags": [
+          "PUT: Images"
+        ],
+        "description": "Update image by id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This is an object id of the image to update. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "This contains the image object to update.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "A status of 204 (No Content) indicates the image was successfully updated."
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The image with the specified id was not found or there was not a change in the request body.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The image with the specified id was not found or there was not a change in the request body."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/images/removeImage/{id}": {
       "delete": {
-        "description": "",
+        "tags": [
+          "DELETE: Images"
+        ],
+        "description": "Delete image by id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This is an object id of the image to delete. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "The image with the specified id was successfully deleted.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The image with the specified id was successfully deleted."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to delete this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The image with the specified id was not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The image with the specified id was not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
