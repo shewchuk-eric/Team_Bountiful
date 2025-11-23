@@ -5,8 +5,9 @@
     "description": "A searchable database of characters found in the Book of Mormon.",
     "version": "1.0.0"
   },
-  "host": "team-bountiful.onrender.com",
-  "servers": [{
+  "host": "localhost:3000",
+  "servers": [
+    {
       "url": "team-bountiful.onrender.com",
       "description": "Render site",
       "schemes": [
@@ -23,7 +24,6 @@
   ],
   "basePath": "/",
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -39,7 +39,7 @@
     },
     "/users/": {
       "get": {
-        "description": "List all users in the collection.",
+        "description": "",
         "produces": [
           "application/json"
         ],
@@ -52,34 +52,36 @@
     },
     "/users/createNewUser": {
       "post": {
-        "description": "Add a new user to the collection. Validates all fields using Joi.",
-        "parameters": [{
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "firstName": {
-                "example": "string"
-              },
-              "lastName": {
-                "example": "string"
-              },
-              "email": {
-                "example": "string"
-              },
-              "userName": {
-                "example": "string"
-              },
-              "password": {
-                "example": "string"
-              },
-              "accessLevel": {
-                "example": "string"
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "userName": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "accessLevel": {
+                  "example": "any"
+                }
               }
             }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -95,8 +97,9 @@
     },
     "/users/updateUser/{id}": {
       "put": {
-        "description": "Make updates to an existing user in the collection. Validates all fields using Joi.",
-        "parameters": [{
+        "description": "",
+        "parameters": [
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -109,22 +112,22 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "lastName": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "email": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "userName": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "password": {
-                  "example": "string of 8-30 characters, alphanumeric"
+                  "example": "any"
                 },
                 "accessLevel": {
-                  "example": "string (default: 'user')"
+                  "example": "any"
                 }
               }
             }
@@ -142,8 +145,9 @@
     },
     "/users/changePassword/{id}": {
       "patch": {
-        "description": "Change the password for an existing user in the collection.",
-        "parameters": [{
+        "description": "",
+        "parameters": [
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -156,7 +160,7 @@
               "type": "object",
               "properties": {
                 "password": {
-                  "example": "string of 8-30 characters, alphanumeric"
+                  "example": "any"
                 }
               }
             }
@@ -174,13 +178,15 @@
     },
     "/users/setAccessLevel/{id}": {
       "patch": {
-        "description": "Change user access level from the default 'user' to 'admin'. Can also be done in reverse.",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string (default: 'admin')"
-        }],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "204": {
             "description": "No Content"
@@ -193,13 +199,15 @@
     },
     "/users/removeUser/{id}": {
       "delete": {
-        "description": "Delete an existing user from the collection.",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "204": {
             "description": "No Content"
@@ -212,158 +220,519 @@
     },
     "/characters/": {
       "get": {
-        "description": "List all characters in the collection.",
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List all characters.",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All characters were successfully found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "$ref": "#/definitions/Character"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/characters/{id}": {
       "get": {
-        "description": "List the details of a specific character by their unique ID.",
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List character details by id.",
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This is an object id of the character to retrieve. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "The character with the specified id was successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Character"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The character with the specified id was not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The character with the specified id was not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/characters/listByBook/{book}": {
       "get": {
-        "description": "List all characters in the collection according to being found in a specific book such as 2Nephi.",
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List all characters by book.",
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "name": "book",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This lists all the characters by a specific book. Example book: 1Nephi",
+            "example": "1Nephi"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All characters with the specified book were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Character"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No characters with the specified book were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No characters with the specified book were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/characters/listByQuality/{quality}": {
       "get": {
-        "description": "List all characters by the quality of 'Hero', 'Zero', or 'Ambiguous'.",
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List all characters by quality.",
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "name": "quality",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "quality",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This lists all the characters by a specific quality. Example quality: Hero",
+            "example": "Hero"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All characters with the specified quality were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Character"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No characters with the specified quality were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No characters with the specified quality were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/characters/createNewCharacter": {
       "post": {
-        "description": "Add a new character to the collection.",
-        "parameters": [{
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "characterName": {
-                "example": "string"
-              },
-              "firstBookSeen": {
-                "example": "string"
-              },
-              "firstVerseSeen": {
-                "example": "string"
-              },
-              "quality": {
-                "example": "string (Hero, Zero, Ambiguous)"
-              },
-              "notes": {
-                "example": "string"
-              }
+        "tags": [
+          "POST: Characters"
+        ],
+        "description": "Create a new character.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "This contains the character object that contains the data to create.",
+            "schema": {
+              "$ref": "#/definitions/Character"
             }
           }
-        }],
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "A character was successfully created.",
+            "schema": {
+              "$ref": "#/definitions/Character"
+            }
+          },
+          "400": {
+            "description": "One or more fields are missing to create a character.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "One or more fields are missing to create a character."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/characters/updateCharacter/{id}": {
       "put": {
-        "description": "Update an existing character in the collection.",
-        "parameters": [{
+        "tags": [
+          "PUT: Characters"
+        ],
+        "description": "Update character by id.",
+        "parameters": [
+          {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This is an object id of the character to update. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "This contains the character object to update.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "characterName": {
-                  "example": "string"
-                },
-                "firstBookSeen": {
-                  "example": "string"
-                },
-                "firstVerseSeen": {
-                  "example": "string"
-                },
-                "quality": {
-                  "example": "string (Hero, Zero, Ambiguous)"
-                },
-                "notes": {
-                  "example": "string"
-                }
-              }
+              "$ref": "#/definitions/Character"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "A status of 204 (No Content) indicates the character was successfully updated."
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The character with the specified id was not found or there was not a change in the request body.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The character with the specified id was not found or there was not a change in the request body."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/deleteCharacter/{id}": {
+      "delete": {
+        "tags": [
+          "DELETE: Characters"
+        ],
+        "description": "Delete character by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This is an object id of the character to delete. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The character with the specified id was successfully deleted.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The character with the specified id was successfully deleted."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to delete this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The character with the specified id was not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The character with the specified id was not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/quotes/": {
       "get": {
-        "description": "List all quotes in the collection.",
+        "description": "",
         "produces": [
           "application/json"
         ],
@@ -376,16 +745,18 @@
     },
     "/quotes/listByBook/{book}": {
       "get": {
-        "description": "List all quotes found in a given book.",
+        "description": "",
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "name": "book",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -395,47 +766,54 @@
     },
     "/quotes/listByCharacter/{id}": {
       "get": {
-        "description": "List all quotes by a specific character ID.",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": "Quotes were found."
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
     "/quotes/createNewQuote": {
       "post": {
-        "description": "Create a new quote in the collection.",
-        "parameters": [{
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "characterId": {
-                "example": "string"
-              },
-              "characterName": {
-                "example": "string"
-              },
-              "whereFound": {
-                "example": "string"
-              },
-              "characterQuality": {
-                "example": "string (Hero, Zero, Ambiguous)"
-              },
-              "text": {
-                "example": "string"
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "characterId": {
+                  "example": "any"
+                },
+                "characterName": {
+                  "example": "any"
+                },
+                "whereFound": {
+                  "example": "any"
+                },
+                "characterQuality": {
+                  "example": "any"
+                },
+                "text": {
+                  "example": "any"
+                }
               }
             }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -448,23 +826,25 @@
     },
     "/quotes/updateQuote/{id}": {
       "put": {
-        "description": "Update an existing quote in the collection.",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
-            "description": "Quote updated."
+            "description": ""
           }
         }
       }
     },
     "/images/": {
       "get": {
-        "description": "List the filenames of all images in the collection.",
+        "description": "",
         "produces": [
           "application/json"
         ],
@@ -477,13 +857,15 @@
     },
     "/images/{id}/": {
       "get": {
-        "description": "List images associated with a specific character ID.",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -493,13 +875,15 @@
     },
     "/images/imageByBook/{book}": {
       "get": {
-        "description": "List images associated with a specific book.",
-        "parameters": [{
-          "name": "book",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "description": "",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -509,7 +893,7 @@
     },
     "/images/createNewImage": {
       "post": {
-        "description": "Add an image to the collection.",
+        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -520,12 +904,14 @@
     "/images/updateImage/{id}": {
       "put": {
         "description": "",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -536,16 +922,115 @@
     "/images/removeImage/{id}": {
       "delete": {
         "description": "",
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Character": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "6912970eb69127d1966091e3"
+        },
+        "characterName": {
+          "type": "string",
+          "example": "Nephi"
+        },
+        "firstBookSeen": {
+          "type": "string",
+          "example": "1Nephi"
+        },
+        "firstVerseSeen": {
+          "type": "string",
+          "example": "1:1"
+        },
+        "quality": {
+          "type": "string",
+          "example": "Hero"
+        },
+        "notes": {
+          "type": "string",
+          "example": "Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given."
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "characterId": {
+          "type": "string",
+          "example": "6912970eb69127d1966091e3"
+        },
+        "characterName": {
+          "type": "string",
+          "example": "Nephi"
+        },
+        "bookWhereSeen": {
+          "type": "string",
+          "example": "1 Nephi"
+        },
+        "characterQuality": {
+          "type": "string",
+          "example": "Hero"
+        },
+        "filename": {
+          "type": "string",
+          "example": "nephi_donkey.jpeg"
+        },
+        "caption": {
+          "type": "string",
+          "example": "Nephi has a donkey"
+        },
+        "description": {
+          "type": "string",
+          "example": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org"
+        },
+        "source": {
+          "type": "string",
+          "example": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
+        }
+      }
+    },
+    "Quote": {
+      "type": "object",
+      "properties": {
+        "characterId": {
+          "type": "string",
+          "example": "**id**"
+        },
+        "characterName": {
+          "type": "string",
+          "example": "Nephi"
+        },
+        "bookName": {
+          "type": "string",
+          "example": "1Nephi"
+        },
+        "verse": {
+          "type": "string",
+          "example": "3:7"
+        },
+        "characterQuality": {
+          "type": "string",
+          "example": "Hero"
+        },
+        "text": {
+          "type": "string",
+          "example": "I will go and do the things which the Lord hath commanded."
         }
       }
     }

@@ -8,6 +8,7 @@ characters.get('/listByBook/:book', charactersController.listByBook);
 characters.get('/listByQuality/:quality', charactersController.listByQuality);
 characters.post('/createNewCharacter', charactersController.createNewCharacter);
 characters.put('/updateCharacter/:id', charactersController.updateCharacter);
+characters.delete('/deleteCharacter/:id', charactersController.deleteCharacter);
 
 
 module.exports = characters;
