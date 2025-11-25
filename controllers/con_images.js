@@ -188,6 +188,14 @@ const createNewImage = async (req, res) => {
 
   try {
     // validate admin level access
+    const {
+      error
+    } = imageSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        error: error.details[0].message
+      });
+    }
     const image = {
       characterId: req.body.characterId,
       characterName: req.body.characterName,
