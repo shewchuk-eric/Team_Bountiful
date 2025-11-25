@@ -92,6 +92,30 @@ const updateQuote = async (req, res) => {
   */
 
   // validate user login - maybe admin level access? (allow users to only update their own quotes?)
+  try {
+    const quoteId = new ObjectId(req.params.id);
+    const quote = {
+      characterId: req.body.characterId,
+      characterName: req.body.characterName,
+      whereFound: req.body.whereFound,
+      characterQuality: req.body.characterQuality,
+      text: req.body.text
+    };
+    const response = await mongodb.getDb().db('team_bountiful').collection('quotes').replaceOne({
+      _id: quoteId
+    }, quote);
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      return res.status(404).json({
+        messsage: 'The quote with the specified id was not found or there was not a change in the request body.'
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || 'An internal server error occurred.'
+    });
+  }
 };
 
 
