@@ -78,19 +78,19 @@ post {{base}}/characters/createNewCharacter HTTP/1.1
 content-type: application/json
 
 {
-    "characterName":"",
-    "firstBookSeen": "",
-    "firstVerseSeen": "",
-    "quality": "",
-    "notes": ""
+    "characterName":"Sariah",
+    "firstBookSeen": "1 Nephi",
+    "firstVerseSeen": "2:5",
+    "quality": "Hero",
+    "notes": "Mother of Nephi.  Supportive of Lehi with one exception when Lehi sends the sons to retrieve the brass plates from Laban."
 }
 
 ### update character in DB
-put {{base}}/characters/updateCharacter/**id** HTTP/1.1
+put {{base}}/characters/updateCharacter/69251c444179f8bae2648f68 HTTP/1.1
 content-type: application/json
 
 {
-    "characterName": "",
+    "characterName":"",
     "firstBookSeen": "",
     "firstVerseSeen": "",
     "quality": "",

@@ -1,6 +1,6 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; 
-const { requireLogin } = require('../models/utilities'); // may need to add a second validation function 
+const { requireLogin, characterSchema } = require('../models/utilities'); // may need to add a second validation function 
 
 
 //TODO: Implement the following character controller functions
@@ -224,6 +224,10 @@ const createNewCharacter = async (req, res) => {
       schema: { message: 'An internal server error occurred.'}
     }
   */
+  const { error } = characterSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
 
   try {  
     // validate admin level access

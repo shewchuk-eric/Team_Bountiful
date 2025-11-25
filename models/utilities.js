@@ -10,6 +10,22 @@ const userSchema = Joi.object({
     accountModified: Joi.strip()
 });
 
+const characterSchema = Joi.object({
+    characterName: Joi.string().min(3).max(50).required(),
+    firstBookSeen: Joi.string().min(4).max(20).allow('').required(),
+    firstVerseSeen: Joi.string().min(3).max(10).required(),
+    quality: Joi.string().min(4).max(10).required(),
+    notes: Joi.string().max(1500).allow('').optional()
+});
+
+const quoteSchema = Joi.object({
+
+});
+
+const imageSchema = Joi.object({
+
+});
+
 function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
   if (req.session.isLoggedIn) {
     let userCreds = {
@@ -35,4 +51,4 @@ function getToday() {
 
 
 
-module.exports = { userSchema, requireLogin, getToday };
+module.exports = { userSchema, characterSchema, quoteSchema, imageSchema, requireLogin, getToday };
