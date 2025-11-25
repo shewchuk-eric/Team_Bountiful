@@ -3,7 +3,9 @@ const ObjectId = require('mongodb').ObjectId;
 const {
   requireLogin
 } = require('../models/utilities');
-
+const {
+  quoteSchema
+} = require('../models/utilities');
 
 //TODO: Implement the following character controller functions
 
@@ -69,6 +71,15 @@ const createNewQuote = async (req, res) => {
   */
 
   // validate user login - maybe admin level access? (allow users to create their own quotes?)
+  const {
+    error
+  } = quoteSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      error: error.details[0].message
+    });
+  }
+
   const quote = {
     characterId: req.body.characterId,
     characterName: req.body.characterName,
@@ -93,6 +104,15 @@ const updateQuote = async (req, res) => {
 
   // validate user login - maybe admin level access? (allow users to only update their own quotes?)
   try {
+    const {
+      error
+    } = quoteSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        error: error.details[0].message
+      });
+    }
+
     const quoteId = new ObjectId(req.params.id);
     const quote = {
       characterId: req.body.characterId,
@@ -104,6 +124,7 @@ const updateQuote = async (req, res) => {
     const response = await mongodb.getDb().db('team_bountiful').collection('quotes').replaceOne({
       _id: quoteId
     }, quote);
+
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
