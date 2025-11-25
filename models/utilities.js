@@ -19,15 +19,21 @@ const characterSchema = Joi.object({
 });
 
 const quoteSchema = Joi.object({
-  characterId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+  characterId: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
   characterName: Joi.string().min(3).max(50).required(),
   whereFound: Joi.string().min(4).max(20).required(),
   characterQuality: Joi.string().min(4).max(10).required(),
-  text: Joi.string().min(1).max(500).required()
+  text: Joi.string().max(500).required()
 });
 
 const imageSchema = Joi.object({
-
+  characterName: Joi.string().min(3).max(50).required(),
+  bookWhereSeen: Joi.string().min(4).max(20).required(),
+  characterQuality: Joi.string().min(4).max(10).required(),
+  filename: Joi.string().max(50).required(),
+  caption: Joi.string().min(3).max(50).required(),
+  description: Joi.string().max(1500).allow('').optional(),
+  source: Joi.string().uri().required()
 });
 
 function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
