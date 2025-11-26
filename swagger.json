@@ -1712,7 +1712,7 @@
       "properties": {
         "characterId": {
           "type": "string",
-          "example": "**id**"
+          "example": "6912970eb69127d1966091e3"
         },
         "characterName": {
           "type": "string",
