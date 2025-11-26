@@ -59,7 +59,7 @@ const listByBook = async (req, res) => {
       type: 'string',
       required: true,
       description: 'This lists all the images by a specific book. Example book: 1 Nephi',
-      example: '1Nephi'
+      example: '1 Nephi'
     }
     #swagger.responses[200] = {
       description: 'All images with the specified book were successfully retrieved.',
@@ -243,8 +243,12 @@ const updateImage = async (req, res) => {
       schema: { $ref: '#/definitions/Image' } 
     }
     #swagger.responses[204] = {
-      description: 'A status of 204 (No Content) indicates the image was successfully updated.',
+      description: 'A status of 204 (No Content) indicates the image was successfully updated.'
     }
+    #swagger.responses[400] = {
+      description: 'A status of 400 indicates the image was not in the correct format.',
+      schema: { message: 'At least one field is not in the correct format.' }
+    }      
     #swagger.responses[403] = {
       description: 'Permission denied',
       schema: { message: 'Forbidden. You must be signed in to use this resource.' } 
@@ -339,7 +343,7 @@ const removeImage = async (req, res) => {
       });
     } else {
       return res.status(404).json({
-        messsage: 'The  with the specified id was not found.'
+        messsage: 'The image with the specified id was not found.'
       });
     }
   } catch (error) {

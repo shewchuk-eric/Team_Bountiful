@@ -104,8 +104,8 @@ const listByBook = async (req, res) => {
       in: 'path',
       type: 'string',
       required: true,
-      description: 'This lists all the characters by a specific book. Example book: 1Nephi',
-      example: '1Nephi'
+      description: 'This lists all the characters by a specific book. Example book: 1 Nephi',
+      example: '1 Nephi'
     }
     #swagger.responses[200] = {
       description: 'All characters with the specified book were successfully retrieved.',
