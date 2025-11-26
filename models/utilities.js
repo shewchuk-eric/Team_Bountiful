@@ -21,7 +21,7 @@ const characterSchema = Joi.object({
 const quoteSchema = Joi.object({
   characterId: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
   characterName: Joi.string().min(3).max(50).required(),
-  bookName: Joi.string().min(4).max(20).allow('').required(),,
+  bookName: Joi.string().min(4).max(20).allow('').required(),
   verse: Joi.string().min(3).max(10).required(),
   // whereFound: Joi.string().min(4).max(20).required(),
   characterQuality: Joi.string().min(4).max(10).required(),
