@@ -52,7 +52,7 @@ const doc = {
       source: 'https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng'      
     },
     Quote: {
-      characterId: '**id**',
+      characterId: '6912970eb69127d1966091e3',
       characterName: 'Nephi',
       bookName: '1 Nephi',
       verse: '3:7',
