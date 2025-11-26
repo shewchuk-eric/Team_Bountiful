@@ -221,141 +221,6 @@
         }
       }
     },
-    "/characters/": {
-      "get": {
-        "tags": [
-          "GET: Characters"
-        ],
-        "description": "List all characters.",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "All characters were successfully found.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "array"
-                },
-                "items": {
-                  "$ref": "#/definitions/Character"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "403": {
-            "description": "Permission denied",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Forbidden. You must be signed in to use this resource."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "An internal server error occurred."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/characters/{id}": {
-      "get": {
-        "tags": [
-          "GET: Characters"
-        ],
-        "description": "List character details by id.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "This is an object id of the character to retrieve. Example id: 6912970eb69127d1966091e3",
-            "example": "6912970eb69127d1966091e3"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The character with the specified id was successfully retrieved.",
-            "schema": {
-              "$ref": "#/definitions/Character"
-            }
-          },
-          "403": {
-            "description": "Permission denied",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Forbidden. You must be signed in to use this resource."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "404": {
-            "description": "The character with the specified id was not found.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "messsage": {
-                  "type": "string",
-                  "example": "The character with the specified id was not found."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "An internal server error occurred."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
     "/characters/listByBook/{book}": {
       "get": {
         "tags": [
@@ -371,8 +236,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "This lists all the characters by a specific book. Example book: 1Nephi",
-            "example": "1Nephi"
+            "description": "This lists all the characters by a specific book. Example book: 1 Nephi",
+            "example": "1 Nephi"
           }
         ],
         "responses": {
@@ -479,6 +344,141 @@
                 "messsage": {
                   "type": "string",
                   "example": "No characters with the specified quality were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List character details by id.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This is an object id of the character to retrieve. Example id: 6912970eb69127d1966091e3",
+            "example": "6912970eb69127d1966091e3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The character with the specified id was successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Character"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The character with the specified id was not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The character with the specified id was not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/": {
+      "get": {
+        "tags": [
+          "GET: Characters"
+        ],
+        "description": "List all characters.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All characters were successfully found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "$ref": "#/definitions/Character"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
                 }
               },
               "xml": {
@@ -738,13 +738,58 @@
         "tags": [
           "GET: Quotes"
         ],
-        "description": "",
+        "description": "List all quotes.",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All quotes were successfully found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "$ref": "#/definitions/Quote"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -754,7 +799,7 @@
         "tags": [
           "GET: Quotes"
         ],
-        "description": "",
+        "description": "List all quotes by book.",
         "produces": [
           "application/json"
         ],
@@ -763,36 +808,136 @@
             "name": "book",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This lists all the quotes by a specific book. Example book: 1 Nephi",
+            "example": "1 Nephi"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All quotes with the specified book were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No quotes with the specified book were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No quotes with the specified book were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
-    "/quotes/listByCharacter/{id}": {
+    "/quotes/listByCharacter/{character}": {
       "get": {
         "tags": [
           "GET: Quotes"
         ],
-        "description": "",
+        "description": "List all quotes by character.",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "character",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This lists all the quotes by a specific character. Example character: Nephi",
+            "example": "Nephi"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All quotes with the specified character were successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No quotes with the specified character were found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "No quotes with the specified character were found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -802,39 +947,69 @@
         "tags": [
           "POST: Quotes"
         ],
-        "description": "",
+        "description": "Create a new quote.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "This contains the quote object that contains the data to create.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "characterId": {
-                  "example": "any"
-                },
-                "characterName": {
-                  "example": "any"
-                },
-                "whereFound": {
-                  "example": "any"
-                },
-                "characterQuality": {
-                  "example": "any"
-                },
-                "text": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Quote"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "An quote was successfully created.",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          },
+          "400": {
+            "description": "One or more fields are missing to create a quote.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "One or more fields are missing to create a quote."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -842,20 +1017,171 @@
     "/quotes/updateQuote/{id}": {
       "put": {
         "tags": [
-          "DELETE: Quotes"
+          "PUT: Quotes"
         ],
-        "description": "",
+        "description": "Update quote by id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "This is an object id of the quote to update. Example id: 69227d43cc3fae26dd0125f9",
+            "example": "69227d43cc3fae26dd0125f9"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "This contains the quote object to update.",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "A status of 204 (No Content) indicates the quote was successfully updated."
+          },
+          "400": {
+            "description": "A status of 400 indicates the quote was not in the correct format.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "At least one field is not in the correct format."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to use this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The quote with the specified id was not found or there was not a change in the request body.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The quote with the specified id was not found or there was not a change in the request body."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quotes/removeQuote/{id}": {
+      "delete": {
+        "tags": [
+          "DELETE: Quotes"
+        ],
+        "description": "Delete quote by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "This is an object id of the quote to delete. Example id: 69227d43cc3fae26dd0125f9",
+            "example": "69227d43cc3fae26dd0125f9"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The quote with the specified id was successfully deleted.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The quote with the specified id was successfully deleted."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden. You must be signed in to delete this resource."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The quote with the specified id was not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messsage": {
+                  "type": "string",
+                  "example": "The quote with the specified id was not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "An internal server error occurred."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -937,7 +1263,7 @@
             "required": true,
             "type": "string",
             "description": "This lists all the images by a specific book. Example book: 1 Nephi",
-            "example": "1Nephi"
+            "example": "1 Nephi"
           }
         ],
         "responses": {
@@ -1170,6 +1496,21 @@
           "204": {
             "description": "A status of 204 (No Content) indicates the image was successfully updated."
           },
+          "400": {
+            "description": "A status of 400 indicates the image was not in the correct format.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "At least one field is not in the correct format."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "403": {
             "description": "Permission denied",
             "schema": {
@@ -1313,7 +1654,7 @@
         },
         "firstBookSeen": {
           "type": "string",
-          "example": "1Nephi"
+          "example": "1 Nephi"
         },
         "firstVerseSeen": {
           "type": "string",
@@ -1379,7 +1720,7 @@
         },
         "bookName": {
           "type": "string",
-          "example": "1Nephi"
+          "example": "1 Nephi"
         },
         "verse": {
           "type": "string",

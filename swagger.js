@@ -36,7 +36,7 @@ const doc = {
     Character: {
       _id: '6912970eb69127d1966091e3',
       characterName: 'Nephi',
-      firstBookSeen: '1Nephi',
+      firstBookSeen: '1 Nephi',
       firstVerseSeen: '1:1',
       quality: 'Hero',
       notes: 'Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given.'
@@ -54,7 +54,7 @@ const doc = {
     Quote: {
       characterId: '**id**',
       characterName: 'Nephi',
-      bookName: '1Nephi',
+      bookName: '1 Nephi',
       verse: '3:7',
       characterQuality: 'Hero',
       text: 'I will go and do the things which the Lord hath commanded.'     
