@@ -58,6 +58,14 @@ const doc = {
       verse: '3:7',
       characterQuality: 'Hero',
       text: 'I will go and do the things which the Lord hath commanded.'     
+    },
+    User: {
+      firstName: 'Dallin',
+      lastName: 'Stephens',
+      email: 'dallinstephens1@gmail.com',
+      userName: 'DallinS',
+      password: 'dallins123Password',
+      accessLevel: 'admin'     
     }
   }
 };

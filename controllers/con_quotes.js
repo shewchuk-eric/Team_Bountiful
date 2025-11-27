@@ -167,7 +167,7 @@ const createNewQuote = async (req, res) => {
       schema: { $ref: '#/definitions/Quote' } 
     }
     #swagger.responses[201] = {
-      description: 'An quote was successfully created.',
+      description: 'A quote was successfully created.',
       schema: { $ref: '#/definitions/Quote' }
     }
     #swagger.responses[403] = {
