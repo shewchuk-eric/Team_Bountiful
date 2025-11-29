@@ -78,19 +78,19 @@ post {{base}}/characters/createNewCharacter HTTP/1.1
 content-type: application/json
 
 {
-    "characterName":"Sariah",
-    "firstBookSeen": "1 Nephi",
-    "firstVerseSeen": "2:5",
+    "characterName": "Himni",
+    "firstBookSeen": "Mosiah",
+    "firstVerseSeen": "27:8",
     "quality": "Hero",
-    "notes": "Mother of Nephi.  Supportive of Lehi with one exception when Lehi sends the sons to retrieve the brass plates from Laban."
+    "notes": "Son of Mosiah who was persecuting members of the church with Alma. Becomes converted and later teaches gospel to Lamanites in the lands of Lamoni and his father."
 }
 
 ### update character in DB
-put {{base}}/characters/updateCharacter/69251c444179f8bae2648f68 HTTP/1.1
+put {{base}}/characters/updateCharacter/**id** HTTP/1.1
 content-type: application/json
 
 {
-    "characterName":"",
+    "characterName": "",
     "firstBookSeen": "",
     "firstVerseSeen": "",
     "quality": "",
