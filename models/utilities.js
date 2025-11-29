@@ -29,6 +29,7 @@ const quoteSchema = Joi.object({
 });
 
 const imageSchema = Joi.object({
+  characterId: Joi.strip(), // will be added in controller
   characterName: Joi.string().min(3).max(50).required(),
   bookWhereSeen: Joi.string().min(4).max(20).required(),
   characterQuality: Joi.string().min(4).max(10).required(),

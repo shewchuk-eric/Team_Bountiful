@@ -275,6 +275,7 @@ const updateImage = async (req, res) => {
     }
     const imageId = new ObjectId(req.params.id);
     const image = {
+      characterId: req.body.characterId,
       characterName: req.body.characterName,
       bookWhereSeen: req.body.bookWhereSeen,
       characterQuality: req.body.characterQuality,

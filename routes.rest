@@ -156,27 +156,28 @@ post {{base}}/images/createNewImage HTTP/1.1
 content-type: application/json
 
 {
-    "characterId": "6912970eb69127d1966091e3",
-    "characterName": "Nephi",
+    "characterId": "692b5b132c191fddead2f449",
+    "characterName": "Laman",
     "bookWhereSeen": "1 Nephi",
-    "characterQuality": "Hero",
-    "filename": "nephi_donkey.jpeg",
-    "caption": "Nephi has a donkey",
-    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "characterQuality": "Zero",
+    "filename": "laman_lemuel_1.jpeg",
+    "caption": "Laman is unhappy",
+    "description": "An image of Laman and Lemuel standing together. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
     "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
 }
 
 ### update image in DB
-put {{base}}/images/updateImage/**image-id** HTTP/1.1
+put {{base}}/images/updateImage/692b7adb4a610f15ce99986d HTTP/1.1
 content-type: application/json
+
 {
-    "characterId": "6912970eb69127d1966091e3",
-    "characterName": "Nephi",
+    "characterId": "692b5adb2c191fddead2f448",
+    "characterName": "Laman",
     "bookWhereSeen": "1 Nephi",
-    "characterQuality": "Hero",
-    "filename": "nephi_donkey.jpeg",
-    "caption": "Nephi with a donkey",
-    "description": "An image of Nephi with a donkey. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
+    "characterQuality": "Zero",
+    "filename": "laman_lemuel_1.jpeg",
+    "caption": "Laman is unhappy",
+    "description": "An image of Laman and Lemuel standing together. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
     "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-1-2-images?lang=eng"
 }
 
