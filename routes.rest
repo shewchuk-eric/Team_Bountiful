@@ -354,6 +354,7 @@ content-type: application/json
 ### update image in DB
 put {{remote}}/images/updateImage/**id** HTTP/1.1
 content-type: application/json
+
 {
     "characterId": "**id**",
     "characterName": "Nephi",
