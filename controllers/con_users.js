@@ -27,6 +27,8 @@ const listAllUsers = async (req, res, next) => {
 
   try {
     let user = requireLogin(req, res, next);
+    console.log('user status is: ', user);
+    console.log('accessLevel is: ', req.session.accessLevel);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
