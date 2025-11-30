@@ -18,7 +18,7 @@ const doc = {
       "schemes": ["http"]
     }
   ], */
-  host: 'localhost:3000',
+  host: 'team-bountiful.onrender.com',
   schemes: ['https', 'http'],
   // servers: [
   //   {
