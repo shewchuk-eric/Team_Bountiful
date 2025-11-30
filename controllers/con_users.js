@@ -28,7 +28,7 @@ const listAllUsers = async (req, res, next) => {
   try {
     let user = requireLogin(req, res, next);
     console.log('user from requireLogin is:', user);
-    if (!user || userLevel != 'admin') {
+    if (!user || req.session.userLevel != 'admin') {
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
       return;
     } // Validation for admin level access - remove comment marks when sign-in is functional

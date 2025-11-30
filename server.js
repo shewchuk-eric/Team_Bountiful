@@ -66,7 +66,6 @@ app.get(
   (req, res) => {
     req.session.isLoggedIn = true;
     req.session.username = req.user.username;
-    //res.redirect("/api-docs/#/");
     res.redirect("/users/checkAdmin/" + req.user.username);
   }
 );
