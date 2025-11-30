@@ -43,12 +43,8 @@ const imageSchema = Joi.object({
 
 async function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
   if (req.session.isLoggedIn) {
-    let userCreds = {
-      "username": req.session.username,
-      "userLevel": req.session.accessLevel
-    }
     console.log('User is logged in as:', req.session.accessLevel);
-    return (userCreds); // User is logged in, continue to the route handler
+    return (true); // User is logged in, continue to the route handler
   } else {
     return (false)
   }
