@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const mongodb = require('../db/connect');
 
 const userSchema = Joi.object({
   firstName: Joi.string().min(3).max(50).required(),
