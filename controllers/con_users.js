@@ -27,8 +27,7 @@ const listAllUsers = async (req, res, next) => {
 
   try {
     let user = requireLogin(req, res, next);
-    console.log('user from requireLogin is:', user);
-    if (!user || req.session.userLevel != 'admin') {
+    if (!user || session.accessLevel != 'admin') {
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
       return;
     } // Validation for admin level access - remove comment marks when sign-in is functional
@@ -51,17 +50,16 @@ const getUserByGitName = async (req, res, next) => {
     const result = await mongodb.getDb().db('team_bountiful').collection('users').findOne({ gitName: gitName });
     if (result && result.accessLevel === 'admin') {
       req.session.accessLevel = 'admin';
-      //res.status(200).json(result);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      req.session.accessLevel = 'user';
     }
   } catch (error) {
     return res.status(500).json({
       message: error.message || 'An internal server error occurred.'
     });
   } 
-  console.log('username is: ', req.session.username);
-  console.log('userLevel is: ', req.session.accessLevel);
+  console.log('userName is: ', req.session.username);
+  console.log('accessLevel is: ', req.session.accessLevel);
   res.redirect('/api-docs/#/');
 };
 

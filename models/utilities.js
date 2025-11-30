@@ -42,21 +42,12 @@ const imageSchema = Joi.object({
 });
 
 async function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
-  let level = 'user';
-  console.log('just set level to ', level); // debugging - delete later
-  console.log('requireLogin session info:', req.session.isLoggedIn); // debugging - delete later
   if (req.session.isLoggedIn) {
-    const userName = req.session.username
-    const result = await mongodb.getDb().db('team_bountiful').collection('users').find({gitName: userName});
-    if (result) {
-      level = 'admin';
-      console.log('elevated user to admin level');
-    }
     let userCreds = {
       "username": req.session.username,
-      "userLevel": level
+      "userLevel": req.session.accessLevel
     }
-    console.log('User is logged in as:', level);
+    console.log('User is logged in as:', req.session.accessLevel);
     return (userCreds); // User is logged in, continue to the route handler
   } else {
     return (false)
