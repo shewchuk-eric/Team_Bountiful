@@ -26,11 +26,12 @@ const listAllUsers = async (req, res, next) => {
   */
 
   try {
-    /* let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res, next);
+    console.log('user from requireLogin is:', user);
     if (!user || userLevel != 'admin') {
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
       return;
-    } */ // Validation for admin level access - remove comment marks when sign-in is functional
+    } // Validation for admin level access - remove comment marks when sign-in is functional
     const result = await mongodb.getDb().db('team_bountiful').collection('users').find({});
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -41,6 +42,27 @@ const listAllUsers = async (req, res, next) => {
         message: error.message || 'An internal server error occurred.'
       });
     }    
+};
+
+//GET: CHECK FOR ADMIN BY GITNAME
+const getUserByGitName = async (req, res, next) => {
+  try {
+    const gitName = req.params.gitName;
+    const result = await mongodb.getDb().db('team_bountiful').collection('users').findOne({ gitName: gitName });
+    if (result && result.accessLevel === 'admin') {
+      req.session.accessLevel = 'admin';
+      //res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || 'An internal server error occurred.'
+    });
+  } 
+  console.log('username is: ', req.session.username);
+  console.log('userLevel is: ', req.session.accessLevel);
+  res.redirect('/api-docs/#/');
 };
 
 // POST: CREATE NEW USER
@@ -84,7 +106,8 @@ const createNewUser = async (req, res, next) => {
       userName: req.body.userName,
       password: req.body.password,
       accessLevel: req.body.accessLevel,
-      accountModified: `${today}`
+      accountModified: `${today}`,
+      gitName: req.body.gitName
     };
     const response = await mongodb.getDb().db('team_bountiful').collection('users').insertOne(newUser);
     if (response.acknowledged) {
@@ -148,7 +171,8 @@ const updateUser = async (req, res) => {
       userName: req.body.userName,
       password: req.body.password,
       accessLevel: req.body.accessLevel,
-      accountModified: `${today}`
+      accountModified: `${today}`,
+      gitName: req.body.gitName
     };
     const response = await mongodb.getDb().db('team_bountiful').collection('users').replaceOne({ _id: userId }, contact);
     if (response.modifiedCount > 0) {
@@ -274,6 +298,7 @@ const setAccessLevel = async (req, res) => {
     // validate admin level access
     const userId = new ObjectId(req.params.id);  
     const newAccessLevel = {accessLevel: 'admin'};
+    const addGitName = {gitName: req.body.gitName};
 
     if (!newAccessLevel) {
       return res.status(400).json({
@@ -282,7 +307,9 @@ const setAccessLevel = async (req, res) => {
     }
 
     const response = await mongodb.getDb().db('team_bountiful').collection('users').updateOne({ _id: userId }, { $set: newAccessLevel });
-    if (response.modifiedCount > 0) {
+    console.log(addGitName);
+    const gitResponse = await mongodb.getDb().db('team_bountiful').collection('users').updateOne({ _id: userId }, { $set: addGitName });
+    if (response.modifiedCount > 0 || gitResponse.modifiedCount > 0) {
       res.status(204).send();
     } // else {
     //   res.status(500).json(response.error || 'Unable to modify user access level at this time.');
@@ -350,4 +377,4 @@ const removeUser = async (req, res) => {
   }    
 };
 
-module.exports = { listAllUsers, createNewUser, updateUser, changePassword, setAccessLevel, removeUser };
+module.exports = { listAllUsers, getUserByGitName, createNewUser, updateUser, changePassword, setAccessLevel, removeUser };

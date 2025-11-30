@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const mongodb = require('../db/connect');
 
 const userSchema = Joi.object({
   firstName: Joi.string().min(3).max(50).required(),
@@ -7,7 +8,8 @@ const userSchema = Joi.object({
   userName: Joi.string().alphanum().min(4).max(30).required(),
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(), // 8-30 characters, alphanumeric
   accessLevel: Joi.string().valid('user', 'admin').required(),
-  accountModified: Joi.strip()
+  accountModified: Joi.strip(),
+  gitName: Joi.strip()
 });
 
 const characterSchema = Joi.object({
@@ -39,12 +41,22 @@ const imageSchema = Joi.object({
   source: Joi.string().uri().required()
 });
 
-function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
+async function requireLogin(req, res, next) { //works as is with GitHub OAuth - need to adjust for username/password auth
+  let level = 'user';
+  console.log('just set level to ', level); // debugging - delete later
+  console.log('requireLogin session info:', req.session.isLoggedIn); // debugging - delete later
   if (req.session.isLoggedIn) {
+    const userName = req.session.username
+    const result = await mongodb.getDb().db('team_bountiful').collection('users').find({gitName: userName});
+    if (result) {
+      level = 'admin';
+      console.log('elevated user to admin level');
+    }
     let userCreds = {
       "username": req.session.username,
-      "userLevel": req.session.userLevel
+      "userLevel": level
     }
+    console.log('User is logged in as:', level);
     return (userCreds); // User is logged in, continue to the route handler
   } else {
     return (false)

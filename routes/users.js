@@ -3,6 +3,7 @@ const usersController = require('../controllers/con_users.js');
 
 
 users.get('/', usersController.listAllUsers); 
+users.get('/checkAdmin/:gitName', usersController.getUserByGitName);
 users.post('/createNewUser', usersController.createNewUser);
 users.put('/updateUser/:id', usersController.updateUser);
 users.patch('/changePassword/:id', usersController.changePassword);

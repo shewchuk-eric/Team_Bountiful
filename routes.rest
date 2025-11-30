@@ -20,7 +20,8 @@ content-type: application/json
     "userName": "",
     "password": "",
     "accessLevel": "user",
-    "accountModified": ""
+    "accountModified": "",
+    "gitName": ""
 }
 
 ### update user in DB
@@ -34,7 +35,8 @@ content-type: application/json
     "userName": "",
     "password": "",
     "accessLevel": "admin",
-    "accountModified": ""
+    "accountModified": "",
+    "gitName": ""
 }
 
 ### change password for user in DB
@@ -46,11 +48,12 @@ content-type: application/json
 }
 
 ### set access level for user in DB
-patch {{base}}/users/setAccessLevel/**id** HTTP/1.1
+patch {{base}}/users/setAccessLevel/690ea4f943c4cc83522517aa HTTP/1.1
 content-type: application/json
 
 {
-    "accessLevel": "admin"
+    "accessLevel": "admin",
+    "gitName": "shewchuk-eric"
 }
 
 ### delete user in DB
