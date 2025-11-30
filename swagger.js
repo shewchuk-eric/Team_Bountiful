@@ -20,18 +20,18 @@ const doc = {
   ], */
   host: 'team-bountiful.onrender.com',
   schemes: ['https', 'http'],
-  // servers: [
-  //   {
-  //     url: 'https://team-bountiful.onrender.com',
-  //     description: 'Render site',
-  //     schemes: ['https']
-  //   },
-  //   {
-  //     url: 'http://localhost:3000',
-  //     description: 'Localhost',
-  //     schemes: ['http']
-  //   }
-  // ],
+   servers: [
+     {
+       url: 'https://team-bountiful.onrender.com',
+       description: 'Render site',
+       schemes: ['https']
+     },
+     {
+       url: 'http://localhost:3000',
+       description: 'Localhost',
+       schemes: ['http']
+     }
+   ],
   definitions: {
     Character: {
       _id: '6912970eb69127d1966091e3',

@@ -6,6 +6,22 @@
     "version": "1.0.0"
   },
   "host": "team-bountiful.onrender.com",
+  "servers": [
+    {
+      "url": "https://team-bountiful.onrender.com",
+      "description": "Render site",
+      "schemes": [
+        "https"
+      ]
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Localhost",
+      "schemes": [
+        "http"
+      ]
+    }
+  ],
   "basePath": "/",
   "schemes": [
     "https",
