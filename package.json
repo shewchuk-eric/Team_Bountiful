@@ -4,10 +4,9 @@
   "description": "Final project (group) for CSE341 Web Services course",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "swagger": "node ./swagger.js",
-    "jest": "jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
