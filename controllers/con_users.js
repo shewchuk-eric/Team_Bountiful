@@ -61,8 +61,8 @@ const getUserByGitName = async (req, res, next) => {
       message: error.message || 'An internal server error occurred.'
     });
   } 
-  console.log('userName is: ', req.session.username);
-  console.log('accessLevel is: ', req.session.accessLevel);
+  //console.log('userName is: ', req.session.username);
+  //console.log('accessLevel is: ', req.session.accessLevel);
   res.redirect('/api-docs/#/');
 };
 
