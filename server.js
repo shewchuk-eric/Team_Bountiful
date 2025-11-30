@@ -38,7 +38,8 @@ app
 passport.use(new GitHubStrategy({
     clientID:process.env.CLIENT_ID,
     clientSecret:process.env.CLIENT_SECRET,
-    callbackURL:"http://localhost:3000/auth/github/callback" 
+    //callbackURL:"http://localhost:3000/auth/github/callback"
+    callbackURL:"http://team-bountiful.onrender.com/auth/github/callback" 
   }, (accessToken, refreshToken, profile, done) => {
     return done(null, profile);
   })); 
