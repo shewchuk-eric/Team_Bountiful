@@ -38,3 +38,11 @@ Trello: https://trello.com/b/V6S52Yi0/cse341-project-3?completedInviteSignup=1
 
 Book of Mormon images on churchofjesuschrist.org
 https://www.churchofjesuschrist.org/media/collection/book-of-mormon-videos-images?lang=eng
+
+
+
+For FRONTEND, cd into the folder and enter
+npm install
+
+then to run:
+npm run dev
