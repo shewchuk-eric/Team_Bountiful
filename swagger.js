@@ -65,7 +65,8 @@ const doc = {
       email: 'dallinstephens1@gmail.com',
       userName: 'DallinS',
       password: 'dallins123Password',
-      accessLevel: 'admin'     
+      accessLevel: 'admin',
+      gitName: 'dallinstephens'
     }
   }
 };

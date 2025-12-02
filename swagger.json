@@ -2070,6 +2070,10 @@
         "accessLevel": {
           "type": "string",
           "example": "admin"
+        },
+        "gitName": {
+          "type": "string",
+          "example": "dallinstephens"
         }
       }
     }
