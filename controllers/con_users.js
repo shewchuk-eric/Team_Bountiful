@@ -6,7 +6,7 @@ const today = getToday();
 // GET: LIST ALL USERS
 const listAllUsers = async (req, res, next) => {
   /*
-    #swagger.tags = ['GET: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'List all users.'
     #swagger.responses[200] = {
       description: 'All users were successfully found.',
@@ -69,7 +69,7 @@ const getUserByGitName = async (req, res, next) => {
 // POST: CREATE NEW USER
 const createNewUser = async (req, res, next) => {
   /*
-    #swagger.tags = ['POST: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'Create a new user.'
     #swagger.parameters['body'] = {
       in: 'body',
@@ -126,7 +126,7 @@ const createNewUser = async (req, res, next) => {
 // PUT: UPDATE USER
 const updateUser = async (req, res) => {
   /*
-    #swagger.tags = ['PUT: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'Update user by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -191,7 +191,7 @@ const updateUser = async (req, res) => {
 // PATCH: UPDATE USER PASSWORD
 const changePassword = async (req, res) => {
   /*
-    #swagger.tags = ['PATCH: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'Update user password by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -259,7 +259,7 @@ const changePassword = async (req, res) => {
 // PATCH: UPDATE ACCESS LEVEL
 const setAccessLevel = async (req, res) => {
   /*
-    #swagger.tags = ['PATCH: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'Update user access level by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -330,7 +330,7 @@ const setAccessLevel = async (req, res) => {
 // DELETE: DELETE USER BY ID
 const removeUser = async (req, res) => {
   /*
-    #swagger.tags = ['DELETE: Users']
+    #swagger.tags = ['Users']
     #swagger.description = 'Delete user by id.'
     #swagger.parameters['id'] = {
       in: 'path',

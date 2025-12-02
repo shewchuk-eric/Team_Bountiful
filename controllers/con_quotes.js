@@ -12,7 +12,7 @@ const {
 // GET: RETRIEVE ALL QUOTES
 const listAll = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'List all quotes.'
     #swagger.responses[200] = {
       description: 'All quotes were successfully found.',
@@ -52,7 +52,7 @@ const listAll = async (req, res) => {
 // GET: LIST ALL QUOTES BY BOOK
 const listByBook = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'List all quotes by book.'
     #swagger.parameters['book'] = {
       in: 'path',
@@ -103,7 +103,7 @@ const listByBook = async (req, res) => {
 // GET: LIST ALL QUOTES BY CHARACTER
 const listByCharacter = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'List all quotes by character.'
     #swagger.parameters['character'] = {
       in: 'path',
@@ -158,7 +158,7 @@ const listByCharacter = async (req, res) => {
 // POST: CREATE ONE QUOTE
 const createNewQuote = async (req, res) => {
   /*
-    #swagger.tags = ['POST: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'Create a new quote.'
     #swagger.parameters['body'] = {
       in: 'body',
@@ -221,7 +221,7 @@ const createNewQuote = async (req, res) => {
 // PUT: UPDATE QUOTE BY ID
 const updateQuote = async (req, res) => {
   /*
-    #swagger.tags = ['PUT: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'Update quote by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -299,7 +299,7 @@ const updateQuote = async (req, res) => {
 // DELETE: DELETE QUOTE BY ID
 const removeQuote = async (req, res) => {
   /*
-    #swagger.tags = ['DELETE: Quotes']
+    #swagger.tags = ['Quotes']
     #swagger.description = 'Delete quote by id.'
     #swagger.parameters['id'] = {
       in: 'path',
