@@ -1,8 +1,8 @@
-jest.mock('../../db/connect', () => ({
+jest.mock('../db/connect', () => ({
   getDb: jest.fn()
 }));
 
-jest.mock('../../models/utilities', () => ({
+jest.mock('../models/utilities', () => ({
   imageSchema: {
     validate: jest.fn()
   }
@@ -12,9 +12,9 @@ jest.mock('mongodb', () => ({
   ObjectId: jest.fn((id) => id)
 }));
 
-const mongodb = require('../../db/connect');
-const { imageSchema } = require('../../models/utilities');
-const imagesController = require('../../controllers/con_images');
+const mongodb = require('../db/connect');
+const { imageSchema } = require('../models/utilities');
+const imagesController = require('../controllers/con_images');
 
 const createRes = () => {
   const res = {};
