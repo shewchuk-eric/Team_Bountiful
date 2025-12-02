@@ -25,7 +25,7 @@
     "/users/": {
       "get": {
         "tags": [
-          "GET: Users"
+          "Users"
         ],
         "description": "List all users.",
         "produces": [
@@ -104,7 +104,7 @@
     "/users/createNewUser": {
       "post": {
         "tags": [
-          "POST: Users"
+          "Users"
         ],
         "description": "Create a new user.",
         "parameters": [
@@ -176,7 +176,7 @@
     "/users/updateUser/{id}": {
       "put": {
         "tags": [
-          "PUT: Users"
+          "Users"
         ],
         "description": "Update user by id.",
         "parameters": [
@@ -268,7 +268,7 @@
     "/users/changePassword/{id}": {
       "patch": {
         "tags": [
-          "PATCH: Users"
+          "Users"
         ],
         "description": "Update user password by id.",
         "parameters": [
@@ -366,7 +366,7 @@
     "/users/setAccessLevel/{id}": {
       "patch": {
         "tags": [
-          "PATCH: Users"
+          "Users"
         ],
         "description": "Update user access level by id.",
         "parameters": [
@@ -464,7 +464,7 @@
     "/users/removeUser/{id}": {
       "delete": {
         "tags": [
-          "DELETE: Users"
+          "Users"
         ],
         "description": "Delete user by id.",
         "parameters": [
@@ -532,7 +532,7 @@
     "/characters/listByBook/{book}": {
       "get": {
         "tags": [
-          "GET: Characters"
+          "Characters"
         ],
         "description": "List all characters by book.",
         "produces": [
@@ -606,7 +606,7 @@
     "/characters/listByQuality/{quality}": {
       "get": {
         "tags": [
-          "GET: Characters"
+          "Characters"
         ],
         "description": "List all characters by quality.",
         "produces": [
@@ -680,7 +680,7 @@
     "/characters/{id}": {
       "get": {
         "tags": [
-          "GET: Characters"
+          "Characters"
         ],
         "description": "List character details by id.",
         "produces": [
@@ -754,7 +754,7 @@
     "/characters/": {
       "get": {
         "tags": [
-          "GET: Characters"
+          "Characters"
         ],
         "description": "List all characters.",
         "produces": [
@@ -815,7 +815,7 @@
     "/characters/createNewCharacter": {
       "post": {
         "tags": [
-          "POST: Characters"
+          "Characters"
         ],
         "description": "Create a new character.",
         "parameters": [
@@ -887,7 +887,7 @@
     "/characters/updateCharacter/{id}": {
       "put": {
         "tags": [
-          "PUT: Characters"
+          "Characters"
         ],
         "description": "Update character by id.",
         "parameters": [
@@ -964,7 +964,7 @@
     "/characters/deleteCharacter/{id}": {
       "delete": {
         "tags": [
-          "DELETE: Characters"
+          "Characters"
         ],
         "description": "Delete character by id.",
         "parameters": [
@@ -1044,7 +1044,7 @@
     "/quotes/": {
       "get": {
         "tags": [
-          "GET: Quotes"
+          "Quotes"
         ],
         "description": "List all quotes.",
         "produces": [
@@ -1105,7 +1105,7 @@
     "/quotes/listByBook/{book}": {
       "get": {
         "tags": [
-          "GET: Quotes"
+          "Quotes"
         ],
         "description": "List all quotes by book.",
         "produces": [
@@ -1179,7 +1179,7 @@
     "/quotes/listByCharacter/{character}": {
       "get": {
         "tags": [
-          "GET: Quotes"
+          "Quotes"
         ],
         "description": "List all quotes by character.",
         "produces": [
@@ -1253,7 +1253,7 @@
     "/quotes/createNewQuote": {
       "post": {
         "tags": [
-          "POST: Quotes"
+          "Quotes"
         ],
         "description": "Create a new quote.",
         "parameters": [
@@ -1325,7 +1325,7 @@
     "/quotes/updateQuote/{id}": {
       "put": {
         "tags": [
-          "PUT: Quotes"
+          "Quotes"
         ],
         "description": "Update quote by id.",
         "parameters": [
@@ -1417,7 +1417,7 @@
     "/quotes/removeQuote/{id}": {
       "delete": {
         "tags": [
-          "DELETE: Quotes"
+          "Quotes"
         ],
         "description": "Delete quote by id.",
         "parameters": [
@@ -1497,7 +1497,7 @@
     "/images/": {
       "get": {
         "tags": [
-          "GET: Images"
+          "Images"
         ],
         "description": "List all images.",
         "produces": [
@@ -1558,7 +1558,7 @@
     "/images/imageByBook/{book}": {
       "get": {
         "tags": [
-          "GET: Images"
+          "Images"
         ],
         "description": "List all images by book.",
         "produces": [
@@ -1632,7 +1632,7 @@
     "/images/listByCharacter/{character}": {
       "get": {
         "tags": [
-          "GET: Images"
+          "Images"
         ],
         "description": "List all images by character.",
         "produces": [
@@ -1706,7 +1706,7 @@
     "/images/createNewImage": {
       "post": {
         "tags": [
-          "POST: Images"
+          "Images"
         ],
         "description": "Create a new image.",
         "parameters": [
@@ -1778,7 +1778,7 @@
     "/images/updateImage/{id}": {
       "put": {
         "tags": [
-          "PUT: Images"
+          "Images"
         ],
         "description": "Update image by id.",
         "parameters": [
@@ -1870,7 +1870,7 @@
     "/images/removeImage/{id}": {
       "delete": {
         "tags": [
-          "DELETE: Images"
+          "Images"
         ],
         "description": "Delete image by id.",
         "parameters": [

@@ -8,7 +8,7 @@ const { requireLogin, characterSchema } = require('../models/utilities'); // may
 // GET: RETRIEVE ALL CHARACTERS
 const listAll = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'List all characters.'
     #swagger.responses[200] = {
       description: 'All characters were successfully found.',
@@ -48,7 +48,7 @@ const listAll = async (req, res) => {
 // GET: LIST CHARACTER DETAILS BY ID
 const listDetails = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'List character details by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -98,7 +98,7 @@ const listDetails = async (req, res) => {
 // GET: LIST ALL CHARACTERS BY BOOK
 const listByBook = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'List all characters by book.'
     #swagger.parameters['book'] = {
       in: 'path',
@@ -149,7 +149,7 @@ const listByBook = async (req, res) => {
 // GET: LIST ALL CHARACTERS BY QUALITY
 const listByQuality = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'List all characters by quality.'
     #swagger.parameters['quality'] = {
       in: 'path',
@@ -199,7 +199,7 @@ const listByQuality = async (req, res) => {
 // POST: CREATE ONE CHARACTER
 const createNewCharacter = async (req, res) => {
   /*
-    #swagger.tags = ['POST: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'Create a new character.'
     #swagger.parameters['body'] = {
       in: 'body',
@@ -260,7 +260,7 @@ const createNewCharacter = async (req, res) => {
 // PUT: UPDATE CHARACTER BY ID
 const updateCharacter = async (req, res) => {
   /*
-    #swagger.tags = ['PUT: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'Update character by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -321,7 +321,7 @@ const updateCharacter = async (req, res) => {
 // DELETE: DELETE CHARACTER BY ID
 const deleteCharacter = async (req, res) => {
   /*
-    #swagger.tags = ['DELETE: Characters']
+    #swagger.tags = ['Characters']
     #swagger.description = 'Delete character by id.'
     #swagger.parameters['id'] = {
       in: 'path',

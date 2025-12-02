@@ -12,7 +12,7 @@ const {
 // GET: RETRIEVE ALL IMAGES
 const listAll = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'List all images.'
     #swagger.responses[200] = {
       description: 'All images were successfully found.',
@@ -52,7 +52,7 @@ const listAll = async (req, res) => {
 // GET: LIST ALL IMAGES BY BOOK
 const listByBook = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'List all images by book.'
     #swagger.parameters['book'] = {
       in: 'path',
@@ -106,7 +106,7 @@ const listByBook = async (req, res) => {
 // GET: LIST IMAGES BY CHARACTER
 const listByCharacter = async (req, res) => {
   /*
-    #swagger.tags = ['GET: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'List all images by character.'
     #swagger.parameters['character'] = {
       in: 'path',
@@ -160,7 +160,7 @@ const listByCharacter = async (req, res) => {
 // POST: CREATE ONE IMAGE
 const createNewImage = async (req, res) => {
   /*
-    #swagger.tags = ['POST: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'Create a new image.'
     #swagger.parameters['body'] = {
       in: 'body',
@@ -227,7 +227,7 @@ const createNewImage = async (req, res) => {
 // PUT: UPDATE IMAGE BY ID
 const updateImage = async (req, res) => {
   /*
-    #swagger.tags = ['PUT: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'Update image by id.'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -304,7 +304,7 @@ const updateImage = async (req, res) => {
 // DELETE: DELETE IMAGE BY ID
 const removeImage = async (req, res) => {
   /*
-    #swagger.tags = ['DELETE: Images']
+    #swagger.tags = ['Images']
     #swagger.description = 'Delete image by id.'
     #swagger.parameters['id'] = {
       in: 'path',
