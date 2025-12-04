@@ -163,7 +163,6 @@ content-type: application/json
     "characterName": "Family of Ishmael",
     "bookWhereSeen": "1 Nephi",
     "characterQuality": "Ambiguous",
-    "filename": "ishmael_family.jpeg",
     "caption": "Ishmael and his family",
     "description": "An image of Ishmael and his family gathered around a table. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
     "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-7-images?lang=eng"
@@ -178,7 +177,6 @@ content-type: application/json
     "characterName": "Angel of the Lord",
     "bookWhereSeen": "1 Nephi",
     "characterQuality": "Hero",
-    "filename": "angel_of_the_lord.jpeg",
     "caption": "Angel appears to Nephi",
     "description": "An image of the Angel of the Lord descending to rebuke Laman and Lemuel. Image from the Book of Mormon Videos and Images collection on churchofjesuschrist.org",
     "source": "https://www.churchofjesuschrist.org/media/collection/1-nephi-3-5-images?lang=eng"
