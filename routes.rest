@@ -74,7 +74,7 @@ get {{base}}/characters/**id**
 get {{base}}/characters/listByBook/**book**
 
 ### list characters by quality in DB
-get {{base}}/characters/listByQuality/**quality**
+get {{base}}/characters/listByQuality/Hero
 
 ### insert new character to DB
 post {{base}}/characters/createNewCharacter HTTP/1.1

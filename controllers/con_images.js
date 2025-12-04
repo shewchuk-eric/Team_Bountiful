@@ -32,11 +32,12 @@ const listAll = async (req, res) => {
   */
 
   try {
-    /* let user = requireLogin(req, res, next);
-      if (!user) {
-        res.status(403).json({ message: 'Forbidden. You must be signed in to use this resource.' });
-        return;
-      } */ // Validation for user level access - remove comment marks when sign-in is functional
+    let user = requireLogin(req, res);
+    if (!user) {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'You must be signed in to use this resource.' });
+      return;
+    }
     const result = await mongodb.getDb().db('team_bountiful').collection('images').find({});
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -80,7 +81,12 @@ const listByBook = async (req, res) => {
   */
 
   try {
-    //validate user login
+    let user = requireLogin(req, res);
+    if (!user) {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'You must be signed in to use this resource.' });
+      return;
+    }
     const bookParam = req.params.book;
     const result = await mongodb.getDb().db('team_bountiful').collection('images').find({
       bookWhereSeen: bookParam
@@ -134,7 +140,12 @@ const listByCharacter = async (req, res) => {
   */
 
   try {
-    //validate user login
+    let user = requireLogin(req, res);
+    if (!user) {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'You must be signed in to use this resource.' });
+      return;
+    }
     const characterParam = req.params.character;
     const result = await mongodb.getDb().db('team_bountiful').collection('images').find({
       characterName: characterParam

@@ -31,7 +31,6 @@ const listAll = async (req, res) => {
     if (!user) {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'You must be signed in to use this resource.' });
-      //res.redirect("../");
       return;
     }
     const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({});
@@ -81,7 +80,6 @@ const listByBook = async (req, res) => {
     if (!user) {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'You must be signed in to use this resource.' });
-      //res.redirect("../");
       return;
     }
     const bookParam = req.params.book
@@ -138,7 +136,6 @@ const listByCharacter = async (req, res) => {
     if (!user) {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'You must be signed in to use this resource.' });
-      //res.redirect("../");
       return;
     }
     const characterParam = req.params.character;
