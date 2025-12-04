@@ -24,7 +24,6 @@ const quoteSchema = Joi.object({
   characterName: Joi.string().min(3).max(50).required(),
   bookName: Joi.string().min(4).max(20).allow('').required(),
   verse: Joi.string().min(3).max(10).required(),
-  // whereFound: Joi.string().min(4).max(20).required(),
   characterQuality: Joi.string().min(4).max(10).required(),
   text: Joi.string().max(500).required()
 });
@@ -34,7 +33,6 @@ const imageSchema = Joi.object({
   characterName: Joi.string().min(3).max(50).required(),
   bookWhereSeen: Joi.string().min(4).max(20).required(),
   characterQuality: Joi.string().min(4).max(10).required(),
-  filename: Joi.string().max(50).required(),
   caption: Joi.string().min(3).max(50).required(),
   description: Joi.string().max(1500).allow('').optional(),
   source: Joi.string().uri().required()

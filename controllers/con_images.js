@@ -198,7 +198,7 @@ const createNewImage = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -217,7 +217,6 @@ const createNewImage = async (req, res) => {
       characterName: req.body.characterName,
       bookWhereSeen: req.body.bookWhereSeen,
       characterQuality: req.body.characterQuality,
-      filename: req.body.filename,
       caption: req.body.caption,
       description: req.body.description,
       source: req.body.source
@@ -280,7 +279,7 @@ const updateImage = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -300,7 +299,6 @@ const updateImage = async (req, res) => {
       characterName: req.body.characterName,
       bookWhereSeen: req.body.bookWhereSeen,
       characterQuality: req.body.characterQuality,
-      filename: req.body.filename,
       caption: req.body.caption,
       description: req.body.description,
       source: req.body.source
