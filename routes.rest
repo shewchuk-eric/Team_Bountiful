@@ -34,7 +34,7 @@ content-type: application/json
     "email": "",
     "userName": "",
     "password": "",
-    "accessLevel": "admin",
+    "accessLevel": "user",
     "accountModified": "",
     "gitName": ""
 }
@@ -48,12 +48,12 @@ content-type: application/json
 }
 
 ### set access level for user in DB
-patch {{base}}/users/setAccessLevel/690ea4f943c4cc83522517aa HTTP/1.1
+patch {{base}}/users/setAccessLevel/**id** HTTP/1.1
 content-type: application/json
 
 {
     "accessLevel": "admin",
-    "gitName": "shewchuk-eric"
+    "gitName": ""
 }
 
 ### delete user in DB
@@ -133,11 +133,11 @@ content-type: application/json
 
 {
     "characterId": "**id**",
-    "characterName": "Nephi",
-    "bookName": "1 Nephi",
-    "verse": "3:7",
-    "characterQuality": "Hero",
-    "text": "I will go and do the things which the Lord hath commanded."
+    "characterName": "",
+    "bookName": "",
+    "verse": "",
+    "characterQuality": "",
+    "text": ""
 }
 
 
