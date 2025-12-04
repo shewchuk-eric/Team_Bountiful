@@ -1,11 +1,6 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
-const {
-  requireLogin
-} = require('../models/utilities');
-const {
-  quoteSchema
-} = require('../models/utilities');
+const { requireLogin, quoteSchema } = require('../models/utilities');
 
 //TODO: Implement the following character controller functions
 
@@ -36,7 +31,7 @@ const listAll = async (req, res) => {
     if (!user) {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'You must be signed in to use this resource.' });
-      res.redirect("../");
+      //res.redirect("../");
       return;
     }
     const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({});
