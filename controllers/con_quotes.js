@@ -32,7 +32,7 @@ const listAll = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user) {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'You must be signed in to use this resource.' });
