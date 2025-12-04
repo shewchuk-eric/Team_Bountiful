@@ -230,8 +230,12 @@ const createNewCharacter = async (req, res) => {
   }
 
   try {  
-    // validate admin level access
-    // const charId = new ObjectId(req.params.id);
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const character = {
       characterName: req.body.characterName,
       firstBookSeen: req.body.firstBookSeen,
@@ -293,7 +297,12 @@ const updateCharacter = async (req, res) => {
   */
 
   try {  
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const charId = new ObjectId(req.params.id);
     const character = {
       characterName: req.body.characterName,
@@ -349,7 +358,12 @@ const deleteCharacter = async (req, res) => {
   */
 
   try {  
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const charId = new ObjectId(req.params.id);
     // Reference for deleteOne and deletedCount: https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/
     const response = await mongodb.getDb().db('team_bountiful').collection('characters').deleteOne({ _id: charId });

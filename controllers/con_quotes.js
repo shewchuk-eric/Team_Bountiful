@@ -32,11 +32,13 @@ const listAll = async (req, res) => {
   */
 
   try {
-    /* let user = requireLogin(req, res, next);
-      if (!user) {
-        res.status(403).json({ message: 'Forbidden. You must be signed in to use this resource.' });
-        return;
-      } */ // Validation for user level access - remove comment marks when sign-in is functional
+    let user = requireLogin(req, res, next);
+    if (!user) {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'You must be signed in to use this resource.' });
+      res.redirect("../");
+      return;
+    }
     const result = await mongodb.getDb().db('team_bountiful').collection('quotes').find({});
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -185,7 +187,12 @@ const createNewQuote = async (req, res) => {
   */
 
   try {
-    // validate user login - maybe admin level access? (allow users to create their own quotes?)
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const {
       error
     } = quoteSchema.validate(req.body);
@@ -258,7 +265,12 @@ const updateQuote = async (req, res) => {
   */
 
   try {
-  // validate user login - maybe admin level access? (allow users to only update their own quotes?)
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const {
       error
     } = quoteSchema.validate(req.body);
@@ -327,7 +339,12 @@ const removeQuote = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const quoteId = new ObjectId(req.params.id);
     // Reference for deleteOne and deletedCount: https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/
     const response = await mongodb.getDb().db('team_bountiful').collection('quotes').deleteOne({

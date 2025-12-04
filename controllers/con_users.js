@@ -27,8 +27,6 @@ const listAllUsers = async (req, res, next) => {
 
   try {
     let user = requireLogin(req, res, next);
-    //console.log('user status is: ', user);
-    //console.log('accessLevel is: ', req.session.accessLevel);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -163,7 +161,12 @@ const updateUser = async (req, res) => {
   */
 
   try {
-    // validate admin level access or that person making the change is the user themselves
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const userId = new ObjectId(req.params.id);
     const contact = {
       firstName: req.body.firstName,
@@ -228,7 +231,12 @@ const changePassword = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const userId = new ObjectId(req.params.id);
     const newPassword = {password: req.body.password};
 
@@ -296,7 +304,12 @@ const setAccessLevel = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const userId = new ObjectId(req.params.id);  
     const newAccessLevel = {accessLevel: 'admin'};
     const addGitName = {gitName: req.body.gitName};
@@ -357,7 +370,12 @@ const removeUser = async (req, res) => {
   */
 
   try {
-    // validate admin level access or that person making the change is the user themselves
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const userId = new ObjectId(req.params.id);
     const response = await mongodb.getDb().db('team_bountiful').collection('users').deleteOne({ _id: userId }, true);
     console.log(response);

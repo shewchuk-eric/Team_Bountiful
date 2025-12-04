@@ -187,7 +187,12 @@ const createNewImage = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const {
       error
     } = imageSchema.validate(req.body);
@@ -264,7 +269,12 @@ const updateImage = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const {
       error
     } = imageSchema.validate(req.body);
@@ -332,7 +342,12 @@ const removeImage = async (req, res) => {
   */
 
   try {
-    // validate admin level access
+    let user = requireLogin(req, res, next);
+    if (!user || req.session.accessLevel != 'admin') {
+      console.log('Access level insufficient:', req.session.accessLevel);
+      res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
+      return;
+    }
     const imageId = new ObjectId(req.params.id);
     // Reference for deleteOne and deletedCount: https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/
     const response = await mongodb.getDb().db('team_bountiful').collection('images').deleteOne({
