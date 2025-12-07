@@ -225,7 +225,7 @@ const listByQuality = async (req, res) => {
 };
 
 // POST: CREATE ONE CHARACTER
-const createNewCharacter = async (req, res) => {
+const createNewCharacter = async (req, res, next) => {
   /*
     #swagger.tags = ['Characters']
     #swagger.description = 'Create a new character.'

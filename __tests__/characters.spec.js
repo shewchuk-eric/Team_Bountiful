@@ -9,12 +9,12 @@
 // --------------------------------------------------------
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; 
-const { requireLogin, characterSchema } = require('../models/utilities');
 
 // Refer to model/utilities.js requireLogin function
 const mockLogin = {
     session: {
-        isLoggedIn: true
+        isLoggedIn: true,
+        accessLevel: 'admin'
     }
 };
 
@@ -65,6 +65,8 @@ jest.mock('../models/utilities', () => ({
     }
 }));
 
+const { requireLogin, characterSchema } = require('../models/utilities');
+
 // Utility to mock a response object
 const mockResponse = () => {
     const res = {};
@@ -73,7 +75,9 @@ const mockResponse = () => {
     res.send = jest.fn().mockReturnThis();
     res.setHeader = jest.fn().mockReturnThis();
     return res;
-}
+};
+
+const mockNext = jest.fn();
 
 // --------------------------------------------------------
 // 3. IMPORT CONTROLLER AND ROUTE
@@ -186,7 +190,7 @@ describe('Characters Controller', (() => {
     // --- GET: LIST CHARACTER DETAILS BY ID ---
     describe('listDetails', () => {
         const req = { 
-            mockLogin,
+            session: mockLogin.session,
             params: { id: MOCK_ID } 
         };
 
@@ -253,7 +257,7 @@ describe('Characters Controller', (() => {
     // --- GET: LIST CHARACTER DETAILS BY BOOK ---
     describe('listByBook', () => {
         const req = { 
-            mockLogin,
+            session: mockLogin.session,
             params: { book: MOCK_BOOK } 
         };
 
@@ -319,7 +323,7 @@ describe('Characters Controller', (() => {
     // --- GET: LIST ALL CHARACTERS BY QUALITY ---
     describe('listByQuality', () => {
         const req = { 
-            mockLogin,
+            session: mockLogin.session,
             params: { quality: MOCK_QUALITY } 
         };
 
@@ -382,6 +386,52 @@ describe('Characters Controller', (() => {
         });
     });
 
+    // --- CREATE ONE CHARACTER ---
+    describe('createNewCharacter', () => {
+        const mockBody = {
+            characterName: 'Nephi',
+            firstBookSeen: '1 Nephi',
+            firstVerseSeen: '1:1',
+            quality: 'Hero',
+            notes: 'Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given.'            
+        };
+
+        const insertedId = 'newInsertedId123';
+
+        const mockInsertedResult = {
+            acknowledged: true,
+            insertedId: insertedId
+        };
+
+        const req = {
+            session: mockLogin.session, 
+            body: mockBody 
+        };
+
+        beforeEach(() => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return true;
+            });
+
+            characterSchema.validate.mockReturnValue({
+                error: undefined,
+                value: mockBody
+            });
+
+            mockCollection.insertOne.mockResolvedValue(mockInsertedResult);
+        });
+        
+        it('should return 201 and the inserted ID on successful creation', async () => {
+            await createNewCharacter(req, res, mockNext);
+
+            expect(characterSchema.validate).toHaveBeenCalledWith(mockBody);
+            expect(mockCollection.insertOne).toHaveBeenCalledWith(mockBody);
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.json).toHaveBeenCalledWith(mockInsertedResult);
+        });
+
+
+    });
 
 
 
