@@ -5,7 +5,7 @@ const { requireLogin, characterSchema } = require('../models/utilities'); // may
 
 //TODO: Implement the following character controller functions
 
-// GET: RETRIEVE ALL CHARACTERS
+// GET: LIST ALL CHARACTERS
 const listAll = async (req, res) => {
   /*
     #swagger.tags = ['Characters']
