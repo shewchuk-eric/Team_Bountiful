@@ -146,13 +146,17 @@ const listByBook = async (req, res) => {
     // const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ firstBookSeen: req.params.book });
     const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ firstBookSeen: bookParam });
 
-    if (!result) {
-      return res.status(404).json({ message: 'No characters with the specified book were found.' });    
-    }
+    // if (!result) {
+    //   return res.status(404).json({ message: 'No characters with the specified book were found.' });    
+    // }
 
     result.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
+      if (lists.length === 0) {
+        return res.status(404).json({ message: 'No characters with the specified book were found.' });    
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
     });
   } catch (error) {
     return res.status(500).json({
@@ -201,13 +205,17 @@ const listByQuality = async (req, res) => {
     const qualityParam = req.params.quality;
     const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ quality: qualityParam });
 
-    if (!result) {
-      return res.status(404).json({ message: 'No characters with the specified quality were found.' });    
-    }
+    // if (!result) {
+    //   return res.status(404).json({ message: 'No characters with the specified quality were found.' });    
+    // }
 
     result.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
+      if (lists.length === 0) {
+        return res.status(404).json({ message: 'No characters with the specified quality were found.' });    
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
     });
   } catch (error) {
     return res.status(500).json({
