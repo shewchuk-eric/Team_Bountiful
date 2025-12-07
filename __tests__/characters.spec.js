@@ -180,5 +180,73 @@ describe('Characters Controller', (() => {
         });
     });
 
+    // --- GET: LIST CHARACTER DETAILS BY ID ---
+    describe('listDetails', () => {
+        const req = { 
+            mockLogin,
+            params: { id: MOCK_ID } 
+        };
+
+        const mockData = [{
+            _id: MOCK_ID,
+            characterName: 'Nephi',
+            firstBookSeen: '1 Nephi',
+            firstVerseSeen: '1:1',
+            quality: 'Hero',
+            notes: 'Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given.'               
+        }];
+
+        it('should return 200 and the character details', async () => {
+            requireLogin.mockReturnValue(true); // login success
+ 
+            mockCollection.find.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue(mockData)
+            });
+            
+            await listDetails(req, res);
+
+            expect(ObjectId).toHaveBeenCalledWith(MOCK_ID);
+            expect(mockCollection.find).toHaveBeenCalledWith({ _id: expect.any(Object) });
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockData);
+        });
+
+        it('should return 403 if access level insufficient', async () => {
+            requireLogin.mockReturnValue(false); // login failure
+
+            await listDetails({ session: {}, params: { id: MOCK_ID } }, res);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
+        });        
+
+        it('should return 404 if the character is not found', async () => {
+            requireLogin.mockReturnValue(true); // login success
+
+            mockCollection.find.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue([])
+            });
+
+            await listDetails(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalledWith({ message: 'The character with the specified id was not found.' });
+        })
+
+        it('should return 500 on database connection error', async () => {
+            requireLogin.mockReturnValue(true); // login success
+
+            mockCollection.find.mockImplementation(() => {
+                throw new Error('An internal server error occurred.');
+            });
+
+            await listDetails(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
+        });
+    });
+
+
 }));
 
