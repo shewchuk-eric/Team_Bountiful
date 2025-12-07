@@ -86,13 +86,17 @@ const listDetails = async (req, res) => {
     const charId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('team_bountiful').collection('characters').find({ _id: charId });
 
-    if (!result) {
-      return res.status(404).json({ message: 'The character with the specified id was not found.' });    
-    }
+    // if (!result) {
+    //   return res.status(404).json({ message: 'The character with the specified id was not found.' });    
+    // }
 
     result.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
+      if (lists.length === 0) {
+        return res.status(404).json({ message: 'The character with the specified id was not found.' });    
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
     });
   } catch (error) {
     return res.status(500).json({
