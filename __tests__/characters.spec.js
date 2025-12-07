@@ -19,6 +19,8 @@ const mockLogin = {
 };
 
 const MOCK_ID = '6912970eb69127d1966091e3';
+const MOCK_BOOK = '1 Nephi';
+
 jest.mock('mongodb', () => ({
     // When mongodb automatically create an _id, it is of the type ObjectId.
     ObjectId: jest.fn((id) => ({
@@ -246,6 +248,73 @@ describe('Characters Controller', (() => {
             expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
         });
     });
+
+    // --- GET: LIST CHARACTER DETAILS BY BOOK ---
+    describe('listByBook', () => {
+        const req = { 
+            mockLogin,
+            params: { book: MOCK_BOOK } 
+        };
+
+        const mockData = [{
+            _id: MOCK_ID,
+            characterName: 'Nephi',
+            firstBookSeen: '1 Nephi',
+            firstVerseSeen: '1:1',
+            quality: 'Hero',
+            notes: 'Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given.'               
+        }];
+
+        it('should return 200 and the character details', async () => {
+            requireLogin.mockReturnValue(true); // login success
+ 
+            mockCollection.find.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue(mockData)
+            });
+            
+            await listByBook(req, res);
+
+            expect(mockCollection.find).toHaveBeenCalledWith({ firstBookSeen: MOCK_BOOK });
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockData);
+        });
+
+        it('should return 403 if access level insufficient', async () => {
+            requireLogin.mockReturnValue(false); // login failure
+
+            await listByBook({ session: {}, params: { book: MOCK_BOOK } }, res);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
+        });        
+
+        it('should return 404 if the character is not found', async () => {
+            requireLogin.mockReturnValue(true); // login success
+
+            mockCollection.find.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue([])
+            });
+
+            await listByBook(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalledWith({ message: 'No characters with the specified book were found.' });
+        })
+
+        it('should return 500 on database connection error', async () => {
+            requireLogin.mockReturnValue(true); // login success
+
+            mockCollection.find.mockImplementation(() => {
+                throw new Error('An internal server error occurred.');
+            });
+
+            await listByBook(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
+        });
+    });
+
 
 
 }));
