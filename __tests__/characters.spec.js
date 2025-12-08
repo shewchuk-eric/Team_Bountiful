@@ -430,7 +430,30 @@ describe('Characters Controller', (() => {
             expect(res.json).toHaveBeenCalledWith(mockInsertedResult);
         });
 
+        it('should return 400 if validation fails', async () => {
+            characterSchema.validate.mockReturnValue({
+                error: { details: [{ message: 'Validation failed.' }]},
+                value: {}
+            });
 
+            await createNewCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ error: 'Validation failed.' });
+        });
+
+        it('should return 500 on database connection error', async () => {
+            requireLogin.mockReturnValue(true); // login success
+
+            mockCollection.insertOne.mockImplementation(() => {
+                throw new Error('An internal server error occurred.');
+            });
+
+            await createNewCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
+        });
     });
 
 
