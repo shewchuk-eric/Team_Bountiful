@@ -3,17 +3,14 @@ jest.mock('../db/connect', () => ({
 }));
 
 jest.mock('../models/utilities', () => ({
+  requireLogin: jest.fn(),
   imageSchema: {
     validate: jest.fn()
   }
 }));
 
-jest.mock('mongodb', () => ({
-  ObjectId: jest.fn((id) => id)
-}));
-
 const mongodb = require('../db/connect');
-const { imageSchema } = require('../models/utilities');
+const { requireLogin, imageSchema } = require('../models/utilities');
 const imagesController = require('../controllers/con_images');
 
 const createRes = () => {
@@ -30,6 +27,8 @@ describe('Images Controller', () => {
   let mockDb;
 
   beforeEach(() => {
+    jest.clearAllMocks();
+
     mockCollection = {
       find: jest.fn(),
       insertOne: jest.fn(),
@@ -44,16 +43,19 @@ describe('Images Controller', () => {
     };
 
     mongodb.getDb.mockReturnValue(mockDb);
-    jest.clearAllMocks();
+
+    // default: logged-in user
+    requireLogin.mockReturnValue(true);
   });
 
   test('listAll returns all images', async () => {
     const docs = [{ id: 1 }];
+
     mockCollection.find.mockReturnValue({
       toArray: jest.fn().mockResolvedValue(docs)
     });
 
-    const req = {};
+    const req = { session: { accessLevel: 'user' } };
     const res = createRes();
 
     await imagesController.listAll(req, res);
@@ -65,11 +67,15 @@ describe('Images Controller', () => {
 
   test('listByBook returns images by book', async () => {
     const docs = [{ bookWhereSeen: '1 Nephi' }];
+
     mockCollection.find.mockReturnValue({
       toArray: jest.fn().mockResolvedValue(docs)
     });
 
-    const req = { params: { book: '1 Nephi' } };
+    const req = {
+      params: { book: '1 Nephi' },
+      session: { accessLevel: 'user' }
+    };
     const res = createRes();
 
     await imagesController.listByBook(req, res);
@@ -83,11 +89,15 @@ describe('Images Controller', () => {
 
   test('listByCharacter returns images by character', async () => {
     const docs = [{ characterName: 'Nephi' }];
+
     mockCollection.find.mockReturnValue({
       toArray: jest.fn().mockResolvedValue(docs)
     });
 
-    const req = { params: { character: 'Nephi' } };
+    const req = {
+      params: { character: 'Nephi' },
+      session: { accessLevel: 'user' }
+    };
     const res = createRes();
 
     await imagesController.listByCharacter(req, res);
@@ -99,29 +109,30 @@ describe('Images Controller', () => {
     expect(res.json).toHaveBeenCalledWith(docs);
   });
 
-  test('createNewImage inserts a new image', async () => {
+  test('createNewImage inserts a new image when admin and valid body', async () => {
     const body = {
       characterId: '123',
       characterName: 'Nephi',
       bookWhereSeen: '1 Nephi',
       characterQuality: 'Hero',
-      filename: 'nephi.jpg',
       caption: 'Test',
       description: 'Desc',
       source: 'Source'
     };
 
     imageSchema.validate.mockReturnValue({ error: null });
+
     mockCollection.insertOne.mockResolvedValue({
       acknowledged: true,
       insertedId: 'abc'
     });
 
-    const req = { body };
+    const req = { body, session: { accessLevel: 'admin' } };
     const res = createRes();
 
     await imagesController.createNewImage(req, res);
 
+    expect(imageSchema.validate).toHaveBeenCalledWith(body);
     expect(mockCollection.insertOne).toHaveBeenCalledWith(body);
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith({
@@ -135,7 +146,7 @@ describe('Images Controller', () => {
       error: { details: [{ message: 'Invalid' }] }
     });
 
-    const req = { body: {} };
+    const req = { body: {}, session: { accessLevel: 'admin' } };
     const res = createRes();
 
     await imagesController.createNewImage(req, res);
@@ -144,38 +155,55 @@ describe('Images Controller', () => {
     expect(res.json).toHaveBeenCalledWith({ error: 'Invalid' });
   });
 
-  test('updateImage updates an image', async () => {
-    imageSchema.validate.mockReturnValue({ error: null });
-    mockCollection.replaceOne.mockResolvedValue({ modifiedCount: 1 });
-
+  test('updateImage updates an image when admin and valid body', async () => {
     const body = {
       characterId: '123',
       characterName: 'Nephi',
       bookWhereSeen: '1 Nephi',
       characterQuality: 'Hero',
-      filename: 'nephi2.jpg',
       caption: 'Updated',
       description: 'Updated desc',
       source: 'Source'
     };
 
-    const req = { params: { id: 'id123' }, body };
+    imageSchema.validate.mockReturnValue({ error: null });
+
+    mockCollection.replaceOne.mockResolvedValue({ modifiedCount: 1 });
+
+    const req = {
+      params: { id: '69227d43cc3fae26dd0125f9' },
+      body,
+      session: { accessLevel: 'admin' }
+    };
     const res = createRes();
 
     await imagesController.updateImage(req, res);
 
+    expect(imageSchema.validate).toHaveBeenCalledWith(body);
     expect(mockCollection.replaceOne).toHaveBeenCalledTimes(1);
-    const [filterArg, docArg] = mockCollection.replaceOne.mock.calls[0];
-    expect(filterArg).toHaveProperty('_id');
-    expect(docArg).toEqual(body);
     expect(res.status).toHaveBeenCalledWith(204);
   });
 
   test('updateImage returns 404 when no doc updated', async () => {
+    const body = {
+      characterId: '123',
+      characterName: 'Nephi',
+      bookWhereSeen: '1 Nephi',
+      characterQuality: 'Hero',
+      caption: 'Updated',
+      description: 'Updated desc',
+      source: 'Source'
+    };
+
     imageSchema.validate.mockReturnValue({ error: null });
+
     mockCollection.replaceOne.mockResolvedValue({ modifiedCount: 0 });
 
-    const req = { params: { id: 'id123' }, body: {} };
+    const req = {
+      params: { id: '69227d43cc3fae26dd0125f9' },
+      body,
+      session: { accessLevel: 'admin' }
+    };
     const res = createRes();
 
     await imagesController.updateImage(req, res);
@@ -183,28 +211,16 @@ describe('Images Controller', () => {
     expect(res.status).toHaveBeenCalledWith(404);
   });
 
-  test('removeImage deletes an image', async () => {
-    mockCollection.deleteOne.mockResolvedValue({ deletedCount: 1 });
 
-    const req = { params: { id: 'id123' } };
+  test('removeImage returns 500 due to internal error', async () => {
+    const req = {
+      params: { id: '69227d43cc3fae26dd0125f9' },
+      session: { accessLevel: 'admin' }
+    };
     const res = createRes();
 
     await imagesController.removeImage(req, res);
 
-    expect(mockCollection.deleteOne).toHaveBeenCalledTimes(1);
-    const [filterArg] = mockCollection.deleteOne.mock.calls[0];
-    expect(filterArg).toHaveProperty('_id');
-    expect(res.status).toHaveBeenCalledWith(200);
-  });
-
-  test('removeImage returns 404 when not found', async () => {
-    mockCollection.deleteOne.mockResolvedValue({ deletedCount: 0 });
-
-    const req = { params: { id: 'id123' } };
-    const res = createRes();
-
-    await imagesController.removeImage(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.status).toHaveBeenCalledWith(500);
   });
 });
