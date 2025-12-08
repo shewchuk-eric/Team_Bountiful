@@ -245,7 +245,7 @@ const createNewCharacter = async (req, res, next) => {
     }
     #swagger.responses[400] = {
       description: 'One or more fields are missing to create a character.',
-      schema: { messsage: 'One or more fields are missing to create a character.' }
+      schema: { error: 'Validation failed.' }
     }
     #swagger.responses[500] = {
       description: 'Internal server error.',
