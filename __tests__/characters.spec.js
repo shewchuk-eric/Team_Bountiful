@@ -36,7 +36,7 @@ jest.mock('mongodb', () => ({
 const mockCollection = {
     find: jest.fn(),
     insertOne: jest.fn(),
-    replaceOne: jest.fn(),
+    updateOne: jest.fn(),
     deleteOne: jest.fn()
 }
 
@@ -410,7 +410,7 @@ describe('Characters Controller', (() => {
 
         beforeEach(() => {
             requireLogin.mockImplementation((req, res, next) => {
-                return true;
+                return true; // login success
             });
 
             characterSchema.validate.mockReturnValue({
@@ -443,8 +443,6 @@ describe('Characters Controller', (() => {
         });
 
         it('should return 500 on database connection error', async () => {
-            requireLogin.mockReturnValue(true); // login success
-
             mockCollection.insertOne.mockImplementation(() => {
                 throw new Error('An internal server error occurred.');
             });
@@ -455,6 +453,72 @@ describe('Characters Controller', (() => {
             expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
         });
     });
+
+    // --- PUT: UPDATE CHARACTER BY ID ---
+    describe('updateCharacter', () => {
+        const mockBodyUpdated = {
+            characterName: 'Nephi',
+            firstBookSeen: '1 Nephi',
+            firstVerseSeen: '1:1',
+            quality: 'Hero',
+            notes: 'Son of Lehi. Righteous and knows his father to be a true prophet. Repeatedly calls upon the Lord for wisdom and knowledge. Builds the boat that brings his family to the new lands. During the time in the wilderness, he marries and has children. The name of his wife, the name and number of his children, is never given.'          
+        };
+
+        const req = {
+            session: mockLogin.session,
+            params: { id: MOCK_ID }, 
+            body: mockBodyUpdated
+        };
+
+        beforeEach(() => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return true; // login success
+            });
+
+            characterSchema.validate.mockReturnValue({
+                error: undefined,
+                value: mockBodyUpdated
+            });
+        });
+
+        it('should return 204 on successful update', async () => {
+            mockCollection.updateOne.mockResolvedValue({ modifiedCount: 1 });
+
+            await updateCharacter(req, res, mockNext);
+
+            expect(ObjectId).toHaveBeenCalledWith(MOCK_ID);
+            expect(mockCollection.updateOne).toHaveBeenCalledWith(
+                { _id: expect.any(Object) }, // the mocked ObjectId
+                { $set: req.body }
+            );
+            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.send).toHaveBeenCalled();
+        });
+
+        it('should return 404 if character is not found or no chnages made', async () => {
+            mockCollection.updateOne.mockResolvedValue({ modifiedCount: 0 });  
+
+            await updateCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalledWith({ messsage: 'The character with the specified id was not found or there was not a change in the request body.' });
+        });
+
+        it('should return 500 on database connection error', async () => {
+            mockCollection.updateOne.mockImplementation(() => {
+                throw new Error('An internal server error occurred.');
+            });
+
+            await updateCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
+        });
+    });
+
+
+
+
 
 
 

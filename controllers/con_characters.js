@@ -290,7 +290,7 @@ const createNewCharacter = async (req, res, next) => {
 };
 
 // PUT: UPDATE CHARACTER BY ID
-const updateCharacter = async (req, res) => {
+const updateCharacter = async (req, res, next) => {
   /*
     #swagger.tags = ['Characters']
     #swagger.description = 'Update character by id.'
@@ -339,7 +339,7 @@ const updateCharacter = async (req, res) => {
       quality: req.body.quality,
       notes: req.body.notes
     };
-    const response = await mongodb.getDb().db('team_bountiful').collection('characters').replaceOne({ _id: charId }, character);
+    const response = await mongodb.getDb().db('team_bountiful').collection('characters').updateOne({ _id: charId }, { $set: character });
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } // else {
