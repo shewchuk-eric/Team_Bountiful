@@ -103,7 +103,7 @@ const {
 } = require('../controllers/con_characters.js');
 
 // This is the express router object exported from the characters routes file.
-const charactersRoutes = ('../routes/characters.js');
+const charactersRoutes = require('../routes/characters.js');
 
 // --------------------------------------------------------
 // 4. CONTROLLER UNIT TESTS
@@ -602,3 +602,83 @@ describe('Characters Controller', (() => {
     });
 }));
 
+// --------------------------------------------------------
+// 4. ROUTE UNIT TESTS
+// --------------------------------------------------------
+
+describe('Characters Routes Mapping', () => {
+    it('should have the correct number of routes (7)', () => {
+        expect(charactersRoutes.stack.length).toBe(7);
+    });
+
+
+    // Test the GET /listByBook/:book route
+    it('should route GET /listByBook/:book to the listByBook controller', () => {
+        const routeLayer = charactersRoutes.stack[0];
+
+        expect(routeLayer.route.path).toBe('/listByBook/:book');
+        expect(routeLayer.route.methods.get).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(listByBook);
+    });
+
+    // Test the GET /listByQuality/:quality route
+    it('should route GET /listByQuality/:quality to the listByQuality controller', () => {
+        const routeLayer = charactersRoutes.stack[1];
+
+        expect(routeLayer.route.path).toBe('/listByQuality/:quality');
+        expect(routeLayer.route.methods.get).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(listByQuality);
+    });
+
+    // Test the GET /:id route
+    it('should route GET /:id to the listDetails controller', () => {
+        const routeLayer = charactersRoutes.stack[2];
+
+        expect(routeLayer.route.path).toBe('/:id');
+        expect(routeLayer.route.methods.get).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(listDetails);
+    });
+
+    // Test the GET / route
+    it('should route GET / to the listAll controller', () => {
+        const routeLayer = charactersRoutes.stack[3];
+
+        expect(routeLayer.route.path).toBe('/');
+        expect(routeLayer.route.methods.get).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(listAll);
+    });
+
+    // Test the POST /createNewCharacter route
+    it('should route POST /createNewCharacter to the createNewCharacter controller', () => {
+        const routeLayer = charactersRoutes.stack[4];
+
+        expect(routeLayer.route.path).toBe('/createNewCharacter');
+        expect(routeLayer.route.methods.post).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(createNewCharacter);
+    });    
+
+    // Test the PUT /updateCharacter/:id route
+    it('should route PUT /updateCharacter/:id to the updateCharacter controller', () => {
+        const routeLayer = charactersRoutes.stack[5];
+
+        expect(routeLayer.route.path).toBe('/updateCharacter/:id');
+        expect(routeLayer.route.methods.put).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(updateCharacter);
+    });    
+
+    // Test the DELETE /deleteCharacter/:id route
+    it('should route DELETE /deleteCharacter/:id to the deleteCharacter controller', () => {
+        const routeLayer = charactersRoutes.stack[6];
+
+        expect(routeLayer.route.path).toBe('/deleteCharacter/:id');
+        expect(routeLayer.route.methods.delete).toBe(true);
+
+        expect(routeLayer.route.stack[0].handle).toBe(deleteCharacter);
+    });
+});
