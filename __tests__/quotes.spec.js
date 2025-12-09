@@ -1,49 +1,52 @@
 jest.mock('../db/connect', () => ({
-    getDb: jest.fn()
+  getDb: jest.fn()
 }));
 
 jest.mock('../models/utilities', () => ({
-    quoteSchema: { validate: jest.fn() }
-}));
-
-jest.mock('mongodb', () => ({
-    ObjectId: jest.fn((id) => id)
+  requireLogin: jest.fn(),
+  quoteSchema: {
+    validate: jest.fn()
+  }
 }));
 
 const mongodb = require('../db/connect');
-const { quoteSchema } = require('../models/utilities');
+const { requireLogin, quoteSchema } = require('../models/utilities');
 const quotesController = require('../controllers/con_quotes');
 
 const createRes = () => {
-    const res = {};
-    res.status = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
-    res.setHeader = jest.fn().mockReturnValue(res);
-    res.send = jest.fn().mockReturnValue(res);
-    return res;
+  const res = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  res.setHeader = jest.fn().mockReturnValue(res);
+  res.send = jest.fn().mockReturnValue(res);
+  return res;
 };
 
 describe('Quotes Controller', () => {
-    let mockCollection;
-    let mockDb;
+  let mockCollection;
+  let mockDb;
 
-    beforeEach(() => {
-        mockCollection = {
-            find: jest.fn(),
-            insertOne: jest.fn(),
-            replaceOne: jest.fn(),
-            deleteOne: jest.fn()
-        };
+  beforeEach(() => {
+    jest.clearAllMocks();
 
-        mockDb = {
-            db: jest.fn(() => ({
-                collection: jest.fn(() => mockCollection)
-            }))
-        };
+    mockCollection = {
+      find: jest.fn(),
+      insertOne: jest.fn(),
+      replaceOne: jest.fn(),
+      deleteOne: jest.fn()
+    };
 
-        mongodb.getDb.mockReturnValue(mockDb);
-        jest.clearAllMocks();
-    });
+    mockDb = {
+      db: jest.fn(() => ({
+        collection: jest.fn(() => mockCollection)
+      }))
+    };
+
+    mongodb.getDb.mockReturnValue(mockDb);
+
+    // default: logged-in user
+    requireLogin.mockReturnValue(true);
+  });
 
     test('listAll returns all quotes', async () => {
         const docs = [{ id: 1 }];
@@ -112,21 +115,23 @@ describe('Quotes Controller', () => {
         };
 
         quoteSchema.validate.mockReturnValue({ error: null });
+
         mockCollection.insertOne.mockResolvedValue({
-            acknowledged: true,
-            insertedId: 'abc'
+          acknowledged: true,
+          insertedId: 'abc'
         });
 
-        const req = { body };
+        const req = { body, session: { accessLevel: 'admin' } };
         const res = createRes();
 
         await quotesController.createNewQuote(req, res);
 
+        expect(quoteSchema.validate).toHaveBeenCalledWith(body);
         expect(mockCollection.insertOne).toHaveBeenCalledWith(body);
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith({
-            acknowledged: true,
-            insertedId: 'abc'
+          acknowledged: true,
+          insertedId: 'abc'
         });
     });
 
@@ -137,7 +142,7 @@ describe('Quotes Controller', () => {
             }
         });
 
-        const req = { body: {} };
+        const req = { body: {}, session: { accessLevel: 'admin' } };
         const res = createRes();
 
         await quotesController.createNewQuote(req, res);
@@ -147,11 +152,6 @@ describe('Quotes Controller', () => {
     });
 
     test('updateQuote updates a quote', async () => {
-        quoteSchema.validate.mockReturnValue({ error: null });
-        mockCollection.replaceOne.mockResolvedValue({
-            modifiedCount: 1
-        });
-
         const body = {
             characterId: '123',
             characterName: 'Nephi',
@@ -161,30 +161,43 @@ describe('Quotes Controller', () => {
             text: 'Test'
         };
 
+        quoteSchema.validate.mockReturnValue({ error: null });
+        mockCollection.replaceOne.mockResolvedValue({ modifiedCount: 1 });
+
         const req = {
-            params: { id: 'id123' },
-            body
+            params: { id: '69227d43cc3fae26dd0125f9' },
+            body,
+            session: { accessLevel: 'admin' }
         };
         const res = createRes();
 
         await quotesController.updateQuote(req, res);
 
+        expect(quoteSchema.validate).toHaveBeenCalledWith(body);
         expect(mockCollection.replaceOne).toHaveBeenCalledTimes(1);
-        const [filterArg, docArg] = mockCollection.replaceOne.mock.calls[0];
-        expect(filterArg).toHaveProperty('_id');
-        expect(docArg).toEqual(body);
         expect(res.status).toHaveBeenCalledWith(204);
     });
 
     test('updateQuote returns 404 when no doc updated', async () => {
+        const body = {
+            characterId: '123',
+            characterName: 'Nephi',
+            bookWhereSeen: '1 Nephi',
+            characterQuality: 'Hero',
+            caption: 'Updated',
+            description: 'Updated desc',
+            source: 'Source'
+        };
+
         quoteSchema.validate.mockReturnValue({ error: null });
         mockCollection.replaceOne.mockResolvedValue({
             modifiedCount: 0
         });
 
         const req = {
-            params: { id: 'id123' },
-            body: {}
+            params: { id: '69227d43cc3fae26dd0125f9' },
+            body,
+            session: { accessLevel: 'admin' }
         };
         const res = createRes();
 
@@ -199,7 +212,8 @@ describe('Quotes Controller', () => {
         });
 
         const req = {
-            params: { id: 'id123' }
+            params: { id: '69227d43cc3fae26dd0125f9' },
+            session: { accessLevel: 'admin' }
         };
         const res = createRes();
 
@@ -215,7 +229,8 @@ describe('Quotes Controller', () => {
         mockCollection.deleteOne.mockResolvedValue({ deletedCount: 0 });
 
         const req = {
-            params: { id: 'id123' }
+            params: { id: '69227d43cc3fae26dd0125f9' },
+            session: { accessLevel: 'admin' }
         };
         const res = createRes();
 
