@@ -4,7 +4,7 @@ const { userSchema, requireLogin, getToday } = require('../models/utilities');
 const today = getToday();
 
 // GET: LIST ALL USERS
-const listAllUsers = async (req, res, next) => {
+const listAllUsers = async (req, res) => {
   /*
     #swagger.tags = ['Users']
     #swagger.description = 'List all users.'
@@ -26,7 +26,7 @@ const listAllUsers = async (req, res, next) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -45,7 +45,7 @@ const listAllUsers = async (req, res, next) => {
 };
 
 //GET: CHECK FOR ADMIN BY GITNAME
-const getUserByGitName = async (req, res, next) => {
+const getUserByGitName = async (req, res) => {
   try {
     const gitName = req.params.gitName;
     const result = await mongodb.getDb().db('team_bountiful').collection('users').findOne({ gitName: gitName });
@@ -161,7 +161,7 @@ const updateUser = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -231,7 +231,7 @@ const changePassword = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
@@ -304,7 +304,7 @@ const setAccessLevel = async (req, res) => {
   */
 
   try {
-    let user = requireLogin(req, res, next);
+    let user = requireLogin(req, res);
     if (!user || req.session.accessLevel != 'admin') {
       console.log('Access level insufficient:', req.session.accessLevel);
       res.status(403).json({ message: 'Forbidden. You do not have access to this resource.' });
