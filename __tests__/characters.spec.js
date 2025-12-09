@@ -80,6 +80,19 @@ const mockResponse = () => {
 const mockNext = jest.fn();
 
 // --------------------------------------------------------
+// CONSOLE LOG SUPPRESSION BLOCK
+// --------------------------------------------------------
+let consoleLogSpy;
+
+beforeAll(() => {
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+});
+
+afterAll(() => {
+    consoleLogSpy.mockRestore();
+});
+
+// --------------------------------------------------------
 // 3. IMPORT CONTROLLER AND ROUTE
 // --------------------------------------------------------
 
@@ -167,7 +180,7 @@ describe('Characters Controller', (() => {
         it('should return 403 if access level insufficient', async () => {
             requireLogin.mockReturnValue(false); // login failure
 
-            await listAll({ session: {} }, res);
+            await listAll({ session: { accessLevel: 'user'  } }, res);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
@@ -221,7 +234,7 @@ describe('Characters Controller', (() => {
         it('should return 403 if access level insufficient', async () => {
             requireLogin.mockReturnValue(false); // login failure
 
-            await listDetails({ session: {}, params: { id: MOCK_ID } }, res);
+            await listDetails({ session: { accessLevel: 'user'  }, params: { id: MOCK_ID } }, res);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
@@ -287,7 +300,7 @@ describe('Characters Controller', (() => {
         it('should return 403 if access level insufficient', async () => {
             requireLogin.mockReturnValue(false); // login failure
 
-            await listByBook({ session: {}, params: { book: MOCK_BOOK } }, res);
+            await listByBook({ session: { accessLevel: 'user'  }, params: { book: MOCK_BOOK } }, res);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
@@ -353,7 +366,7 @@ describe('Characters Controller', (() => {
         it('should return 403 if access level insufficient', async () => {
             requireLogin.mockReturnValue(false); // login failure
 
-            await listByQuality({ session: {}, params: { book: MOCK_QUALITY } }, res);
+            await listByQuality({ session: { accessLevel: 'user'  }, params: { book: MOCK_QUALITY } }, res);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' });
@@ -435,7 +448,7 @@ describe('Characters Controller', (() => {
                 return false; // login failure
             });
 
-            await createNewCharacter({ session: {}}, res, mockNext);
+            await createNewCharacter({ session: { accessLevel: 'user'  }}, res, mockNext);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
@@ -511,7 +524,7 @@ describe('Characters Controller', (() => {
                 return false; // login failure
             });
 
-            await updateCharacter({ session: {}}, res, mockNext);
+            await updateCharacter({ session: { accessLevel: 'user'  }}, res, mockNext);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
@@ -566,7 +579,7 @@ describe('Characters Controller', (() => {
                 return false; // login failure
             });
 
-            await deleteCharacter({ session: {}}, res, mockNext);
+            await deleteCharacter({ session: { accessLevel: 'user'  }}, res, mockNext);
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
