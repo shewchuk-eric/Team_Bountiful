@@ -356,7 +356,7 @@ const updateCharacter = async (req, res, next) => {
 };
 
 // DELETE: DELETE CHARACTER BY ID
-const deleteCharacter = async (req, res) => {
+const deleteCharacter = async (req, res, next) => {
   /*
     #swagger.tags = ['Characters']
     #swagger.description = 'Delete character by id.'

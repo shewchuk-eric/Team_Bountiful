@@ -356,7 +356,7 @@ describe('Characters Controller', (() => {
             await listByQuality({ session: {}, params: { book: MOCK_QUALITY } }, res);
 
             expect(res.status).toHaveBeenCalledWith(403);
-            expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' })
+            expect(res.json).toHaveBeenCalledWith({ message: 'You must be signed in to use this resource.' });
         });        
 
         it('should return 404 if the character is not found', async () => {
@@ -430,6 +430,17 @@ describe('Characters Controller', (() => {
             expect(res.json).toHaveBeenCalledWith(mockInsertedResult);
         });
 
+        it('should return 403 if access level insufficient', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return false; // login failure
+            });
+
+            await createNewCharacter({ session: {}}, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
+        });        
+
         it('should return 400 if validation fails', async () => {
             characterSchema.validate.mockReturnValue({
                 error: { details: [{ message: 'Validation failed.' }]},
@@ -495,6 +506,17 @@ describe('Characters Controller', (() => {
             expect(res.send).toHaveBeenCalled();
         });
 
+        it('should return 403 if access level insufficient', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return false; // login failure
+            });
+
+            await updateCharacter({ session: {}}, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
+        });            
+
         it('should return 404 if character is not found or no chnages made', async () => {
             mockCollection.updateOne.mockResolvedValue({ modifiedCount: 0 });  
 
@@ -516,11 +538,67 @@ describe('Characters Controller', (() => {
         });
     });
 
+    // --- DELETE: DELETE CHARACTER BY ID ---
+    describe('deleteCharacter', () => {
+        const req = {
+            session: mockLogin.session,
+            params: { id: MOCK_ID },
+        };
 
+        it('should return 200 on successful deletion', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return true; // login success
+            });
 
+            mockCollection.deleteOne.mockResolvedValue({ deletedCount: 1 });
 
+            await deleteCharacter(req, res, mockNext);
 
+            expect(mockCollection.deleteOne).toHaveBeenCalledWith(
+                { _id: expect.any(Object) }
+            );
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith({ message: 'The character with the specified id was successfully deleted.' });
+        });
 
+        it('should return 403 if access level insufficient', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return false; // login failure
+            });
 
+            await deleteCharacter({ session: {}}, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(403);
+            expect(res.json).toHaveBeenCalledWith({ message: 'Forbidden. You do not have access to this resource.' });
+        });         
+
+        it('should return 404 if character is not found', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return true; // login success
+            });
+
+            mockCollection.deleteOne.mockResolvedValue({ deletedCount: 0 });
+
+            await deleteCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalledWith({ messsage: 'The character with the specified id was not found.' });
+        });
+
+        it('should return 500 on database connection error', async () => {
+            requireLogin.mockImplementation((req, res, next) => {
+                return true; // login success
+            });
+
+            mockCollection.deleteOne.mockImplementation(() => {
+                throw new Error('An internal server error occurred.');
+            });
+
+            await deleteCharacter(req, res, mockNext);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.json).toHaveBeenCalledWith({ message: 'An internal server error occurred.'});
+        });
+    });
 }));
 
