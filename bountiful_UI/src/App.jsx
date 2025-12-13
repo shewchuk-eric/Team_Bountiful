@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCharacters, getQuotes, getImages } from "./api/bomApi";
+import unknownImg from "./assets/unknown.jpg";
+
 
 
 export default function App() {
@@ -399,14 +401,16 @@ function CharacterModal({ character, images, quotes, onClose }) {
                     className="modal-image-card"
                   >
                     {img.source && (
-                      <img
-                        className="modal-image"
-                        src={img.source}
-                        alt={img.caption || `${charName} image`}
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                        }}
-                      />
+                    <img
+                      className="modal-image"
+                      src={img.source || unknownImg}
+                      alt={img.caption || `${charName} image`}
+                      onError={(e) => {
+                        
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = unknownImg;
+                      }}
+                    />
                     )}
                     <figcaption>
                       <p>{img.caption}</p>
