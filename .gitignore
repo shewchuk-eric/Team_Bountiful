@@ -1,3 +1,7 @@
 node_modules
 .env
+
+# Ignore these files
+__tests__/index.spec.js
+__tests__/swagger.spec.js
 /test-connection.js
