@@ -1,7 +1,6 @@
 node_modules
 .env
 
-# Ignore these files
-__tests__/index.spec.js
-__tests__/swagger.spec.js
+# Ignore this folder that conctains index.spec.js and swagger.spec.js files
+test_archive
 /test-connection.js
